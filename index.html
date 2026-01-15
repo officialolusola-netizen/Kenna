@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigerian PAYE Calculator - Start Here</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #008751 0%, #10b981 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #006d41;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .flag {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .big-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.5em;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px;
+        }
+
+        .big-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .info-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .info-box h3 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            font-size: 1em;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            text-align: left;
+            color: #1e40af;
+            margin-top: 10px;
+        }
+
+        .info-box li {
+            margin: 5px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .big-button {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flag">🇳🇬</div>
+        <h1>Nigerian PAYE Calculator</h1>
+        <p><strong>Nigeria Tax Act, 2025</strong><br>
+        Effective January 1, 2026</p>
+
+        <a href="nigerian_tax_calculator.html" class="big-button">
+            🚀 Open PAYE Calculator
+        </a>
+
+        <div class="info-box">
+            <h3>📋 What This Calculator Does</h3>
+            <p>Calculate employee PAYE (Personal Income Tax) with:</p>
+            <ul>
+                <li>✅ Tax-free threshold: First ₦800,000</li>
+                <li>✅ Progressive rates: 0%, 15%, 18%, 21%, 23%, 25%</li>
+                <li>✅ Rent Relief: 20% of rent (max ₦500k)</li>
+                <li>✅ Monthly and annual breakdown</li>
+                <li>✅ Multi-employee support</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <p><strong>⚠️ Important:</strong> Make sure you click the green button above to open the calculator. Do NOT open README.md or CALCULATOR_README.md - those are documentation files.</p>
+        </div>
+
+        <p style="margin-top: 30px; font-size: 0.9em; color: #777;">
+            Works offline | No installation needed | 100% private
+        </p>
+    </div>
+
+    <script>
+        // Auto-redirect after 3 seconds if user doesn't click
+        setTimeout(function() {
+            if (confirm('Ready to open the PAYE Calculator?')) {
+                window.location.href = 'nigerian_tax_calculator.html';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

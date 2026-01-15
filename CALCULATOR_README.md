@@ -1,5 +1,17 @@
 # Nigerian PAYE Calculator - Nigeria Tax Act 2025
 
+---
+
+> **⚠️ THIS IS DOCUMENTATION - NOT THE CALCULATOR!**
+>
+> **To use the calculator, open one of these files:**
+> - `index.html` (recommended - main entry point)
+> - `nigerian_tax_calculator.html` (direct calculator)
+>
+> **Do NOT open this file** - This is just a guide/manual.
+
+---
+
 ## 📥 Download & Installation Instructions
 
 ### ⚠️ Important: Effective Date

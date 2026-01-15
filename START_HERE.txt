@@ -1,0 +1,63 @@
+================================================================================
+  NIGERIAN PAYE CALCULATOR - HOW TO USE
+================================================================================
+
+📥 WHICH FILE TO OPEN:
+
+  ✅ OPEN THIS FILE: index.html
+     OR
+  ✅ OPEN THIS FILE: nigerian_tax_calculator.html
+
+  ❌ DO NOT OPEN: README.md (this is documentation)
+  ❌ DO NOT OPEN: CALCULATOR_README.md (this is documentation)
+
+================================================================================
+
+🚀 QUICK START (3 STEPS):
+
+  1. Double-click "index.html" or "nigerian_tax_calculator.html"
+
+  2. It will open in your default web browser (Edge, Chrome, Firefox, etc.)
+
+  3. Enter salary information and click "Calculate PAYE"
+
+================================================================================
+
+💡 TROUBLESHOOTING:
+
+  Problem: I see code/text instead of the calculator
+  Solution: You opened the wrong file! Open index.html instead
+
+  Problem: Nothing happens when I click
+  Solution: Make sure JavaScript is enabled in your browser
+
+  Problem: File won't open
+  Solution: Right-click → Open with → Choose your web browser
+
+================================================================================
+
+📊 WHAT GETS CALCULATED:
+
+  ✅ PAYE (Personal Income Tax)
+  ✅ Tax-free status (if income ≤₦800,000)
+  ✅ Rent Relief (20% of rent, max ₦500k)
+  ✅ Monthly and annual net salary
+  ✅ Detailed tax breakdown per band
+
+================================================================================
+
+🇳🇬 Based on Nigeria Tax Act, 2025 (Effective January 1, 2026)
+
+Tax Bands:
+  • First ₦800,000 → 0% (TAX-FREE!)
+  • ₦800k - ₦3M → 15%
+  • ₦3M - ₦10M → 18%
+  • ₦10M - ₦25M → 21%
+  • ₦25M - ₦50M → 23%
+  • Above ₦50M → 25%
+
+================================================================================
+
+Need help? Check CALCULATOR_README.md for full documentation.
+
+================================================================================

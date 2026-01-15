@@ -1,6 +1,17 @@
 # Kenna
 All work pertaining to kenna
 
+---
+
+> **⚠️ THIS IS DOCUMENTATION - NOT THE CALCULATOR!**
+>
+> **To use the calculator:**
+> - Open `index.html` OR `nigerian_tax_calculator.html` in your browser
+> - Do NOT open this file (README.md) - it's just documentation
+> - See `START_HERE.txt` for quick instructions
+
+---
+
 ## 🧮 Nigerian PAYE Calculator - Nigeria Tax Act 2025
 
 ### Offline PAYE (Personal Income Tax) Calculator
