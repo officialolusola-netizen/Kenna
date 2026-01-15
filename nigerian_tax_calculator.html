@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigerian Tax Calculator 2025 - Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            background: #10b981;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-section, .results-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input[type="number"] {
+            font-family: 'Courier New', monospace;
+        }
+
+        .employee-section {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            margin-top: 10px;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 10px 20px;
+            font-size: 0.95em;
+        }
+
+        .btn-remove {
+            background: #ef4444;
+            padding: 8px 15px;
+            font-size: 0.85em;
+            width: auto;
+            margin-top: 5px;
+        }
+
+        .results-section {
+            position: sticky;
+            top: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .result-value {
+            font-weight: 700;
+            color: #1e3c72;
+            font-family: 'Courier New', monospace;
+        }
+
+        .result-value.negative {
+            color: #ef4444;
+        }
+
+        .result-value.positive {
+            color: #10b981;
+        }
+
+        .total-row {
+            background: #f1f5f9;
+            margin: -10px -10px 15px -10px;
+            padding: 15px 10px;
+            border-radius: 8px;
+        }
+
+        .total-row .result-value {
+            font-size: 1.3em;
+            color: #1e3c72;
+        }
+
+        .note {
+            background: #fef3c7;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #92400e;
+            margin-top: 10px;
+            border-left: 3px solid #f59e0b;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .info-box h4 {
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            font-size: 0.9em;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+        }
+
+        .no-results svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .employee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇳🇬 Nigerian Tax Calculator 2025</h1>
+            <p>Comprehensive Multi-Tax Calculator for Companies</p>
+            <span class="offline-badge">✓ Works Offline</span>
+        </div>
+
+        <div class="content">
+            <!-- Input Form Section -->
+            <div class="form-section">
+                <h2 class="section-title">Company Information</h2>
+
+                <div class="info-box">
+                    <h4>📋 Instructions</h4>
+                    <p>Fill in the fields below to calculate your company's tax obligations under Nigerian Tax Act 2025. All amounts should be in Nigerian Naira (₦).</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="grossIncome">Annual Gross Income/Revenue (₦) *</label>
+                    <input type="number" id="grossIncome" placeholder="e.g., 50000000" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatingExpenses">Operating Expenses (₦) *</label>
+                    <input type="number" id="operatingExpenses" placeholder="e.g., 20000000" min="0" step="0.01" required>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 30px;">Employee Information</h2>
+
+                <div id="employeeContainer">
+                    <div class="employee-section" data-employee="1">
+                        <div class="employee-header">
+                            <label><strong>Employee 1 - Annual Salary (₦)</strong></label>
+                        </div>
+                        <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-add" onclick="addEmployee()">+ Add Another Employee</button>
+
+                <h2 class="section-title" style="margin-top: 30px;">Other Tax Information</h2>
+
+                <div class="form-group">
+                    <label for="assetProceeds">Asset Disposal Proceeds (₦)</label>
+                    <input type="number" id="assetProceeds" placeholder="e.g., 5000000" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="assetCost">Asset Cost Basis (Original Cost + Improvements) (₦)</label>
+                    <input type="number" id="assetCost" placeholder="e.g., 3000000" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="vatSales">Annual VAT-Taxable Sales (₦)</label>
+                    <input type="number" id="vatSales" placeholder="e.g., 40000000" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="whtIncome">Income Subject to WHT (₦)</label>
+                    <input type="number" id="whtIncome" placeholder="e.g., 10000000" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="whtPaid">WHT Already Paid (₦)</label>
+                    <input type="number" id="whtPaid" placeholder="e.g., 1000000" min="0" step="0.01" value="0">
+                </div>
+
+                <button type="button" class="btn" onclick="calculateTaxes()">Calculate Taxes</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <h2 class="section-title">Tax Calculation Results</h2>
+
+                <div id="resultsContainer">
+                    <div class="no-results">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3>No Calculations Yet</h3>
+                        <p>Fill in the form and click "Calculate Taxes" to see your results</p>
+                    </div>
+                </div>
+
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Calculating...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Nigerian Tax Calculator 2025</strong> - Offline Version</p>
+            <p>Based on Nigerian Tax Act 2025 | For informational purposes only</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">Consult a qualified tax professional for official advice</p>
+        </div>
+    </div>
+
+    <script>
+        let employeeCount = 1;
+
+        // Format number as currency
+        function formatCurrency(amount) {
+            return '₦' + amount.toLocaleString('en-NG', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Calculate PAYE using Nigerian progressive tax bands
+        function calculatePAYE(annualSalary) {
+            if (annualSalary <= 0) return { tax: 0, cra: 0, taxableIncome: 0 };
+
+            // Consolidated Relief Allowance (CRA): Higher of 1% of gross income or ₦200,000 + 20% of gross
+            const cra = Math.max(annualSalary * 0.01, 200000 + (annualSalary * 0.20));
+            const taxableIncome = Math.max(0, annualSalary - cra);
+
+            // Progressive tax bands
+            const taxBands = [
+                { limit: 300000, rate: 0.07 },
+                { limit: 300000, rate: 0.11 },
+                { limit: 500000, rate: 0.15 },
+                { limit: 500000, rate: 0.19 },
+                { limit: 1600000, rate: 0.21 },
+                { limit: Infinity, rate: 0.24 }
+            ];
+
+            let totalTax = 0;
+            let remaining = taxableIncome;
+
+            for (const band of taxBands) {
+                if (remaining <= 0) break;
+                const taxableInBand = Math.min(remaining, band.limit);
+                totalTax += taxableInBand * band.rate;
+                remaining -= taxableInBand;
+            }
+
+            return {
+                tax: totalTax,
+                cra: cra,
+                taxableIncome: taxableIncome,
+                netSalary: annualSalary - totalTax
+            };
+        }
+
+        // Main tax calculator function
+        function calculateTaxes() {
+            // Get input values
+            const grossIncome = parseFloat(document.getElementById('grossIncome').value) || 0;
+            const operatingExpenses = parseFloat(document.getElementById('operatingExpenses').value) || 0;
+            const assetProceeds = parseFloat(document.getElementById('assetProceeds').value) || 0;
+            const assetCost = parseFloat(document.getElementById('assetCost').value) || 0;
+            const vatSales = parseFloat(document.getElementById('vatSales').value) || 0;
+            const whtIncome = parseFloat(document.getElementById('whtIncome').value) || 0;
+            const whtPaid = parseFloat(document.getElementById('whtPaid').value) || 0;
+
+            // Validate
+            if (grossIncome < 0) {
+                alert('Annual gross income cannot be negative');
+                return;
+            }
+
+            // Get employee salaries
+            const employeeSalaries = [];
+            document.querySelectorAll('.employee-salary').forEach(input => {
+                const salary = parseFloat(input.value) || 0;
+                if (salary > 0) {
+                    employeeSalaries.push(salary);
+                }
+            });
+
+            // Tax rates
+            const CIT_RATE = 0.30;
+            const VAT_RATE = 0.075;
+            const CGT_RATE = 0.10;
+            const TERTIARY_ED_TAX = 0.02;
+            const MIN_TAX_RATE = 0.005;
+
+            // Calculate assessable profit
+            const assessableProfit = grossIncome - operatingExpenses;
+
+            // Company Income Tax
+            const citTax = assessableProfit > 0 ? assessableProfit * CIT_RATE : 0;
+
+            // Apply WHT as credit
+            const whtCredit = Math.min(whtPaid, citTax);
+            const citAfterWht = Math.max(0, citTax - whtCredit);
+
+            // Minimum Tax
+            const minimumTax = grossIncome * MIN_TAX_RATE;
+            const companyIncomeTax = assessableProfit <= 0 ? minimumTax : Math.max(citAfterWht, 0);
+
+            // Tertiary Education Tax
+            const tertiaryTax = assessableProfit > 0 ? assessableProfit * TERTIARY_ED_TAX : 0;
+
+            // Capital Gains Tax
+            const chargeableGain = Math.max(0, assetProceeds - assetCost);
+            const cgtTax = chargeableGain * CGT_RATE;
+
+            // PAYE Calculations
+            const payeDetails = [];
+            let totalPAYE = 0;
+
+            employeeSalaries.forEach((salary, index) => {
+                const paye = calculatePAYE(salary);
+                totalPAYE += paye.tax;
+                payeDetails.push({
+                    employee: index + 1,
+                    salary: salary,
+                    cra: paye.cra,
+                    taxableIncome: paye.taxableIncome,
+                    paye: paye.tax,
+                    netSalary: paye.netSalary
+                });
+            });
+
+            // VAT
+            const vatCollected = vatSales * VAT_RATE;
+
+            // Total company tax liability
+            const totalCompanyTax = companyIncomeTax + tertiaryTax + cgtTax;
+
+            // Net profit
+            const netProfit = assessableProfit - totalCompanyTax;
+            const monthlyNetProfit = netProfit / 12;
+
+            // Display results
+            displayResults({
+                revenue: {
+                    grossIncome,
+                    operatingExpenses,
+                    assessableProfit
+                },
+                companyTaxes: {
+                    citTax,
+                    whtCredit,
+                    citAfterWht,
+                    minimumTax: assessableProfit <= 0 ? minimumTax : 0,
+                    companyIncomeTax,
+                    tertiaryTax,
+                    cgtTax,
+                    totalCompanyTax
+                },
+                employeeTaxes: {
+                    totalPAYE,
+                    payeDetails
+                },
+                vat: {
+                    vatCollected
+                },
+                wht: {
+                    whtIncome,
+                    whtPaid,
+                    whtCredit
+                },
+                netIncome: {
+                    netProfit,
+                    monthlyNetProfit
+                },
+                additional: {
+                    chargeableGain
+                }
+            });
+        }
+
+        // Display results
+        function displayResults(results) {
+            const container = document.getElementById('resultsContainer');
+
+            let html = '';
+
+            // Revenue Breakdown
+            html += `
+                <div class="result-card">
+                    <h3>📊 Revenue Breakdown</h3>
+                    <div class="result-row">
+                        <span class="result-label">Annual Gross Income</span>
+                        <span class="result-value">${formatCurrency(results.revenue.grossIncome)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Operating Expenses</span>
+                        <span class="result-value negative">-${formatCurrency(results.revenue.operatingExpenses)}</span>
+                    </div>
+                    <div class="result-row total-row">
+                        <span class="result-label"><strong>Assessable Profit</strong></span>
+                        <span class="result-value">${formatCurrency(results.revenue.assessableProfit)}</span>
+                    </div>
+                </div>
+            `;
+
+            // Company Tax Liability
+            html += `
+                <div class="result-card">
+                    <h3>🏢 Company Tax Liability</h3>
+                    <div class="result-row">
+                        <span class="result-label">Company Income Tax (30%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.citTax)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">WHT Credit Applied</span>
+                        <span class="result-value negative">-${formatCurrency(results.companyTaxes.whtCredit)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">CIT After WHT</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.citAfterWht)}</span>
+                    </div>
+                    ${results.companyTaxes.minimumTax > 0 ? `
+                    <div class="result-row">
+                        <span class="result-label">Minimum Tax (0.5%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.minimumTax)}</span>
+                    </div>
+                    ` : ''}
+                    <div class="result-row">
+                        <span class="result-label">Tertiary Education Tax (2%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.tertiaryTax)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Capital Gains Tax (10%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.cgtTax)}</span>
+                    </div>
+                    ${results.additional.chargeableGain > 0 ? `
+                    <div class="note">
+                        Chargeable Gain: ${formatCurrency(results.additional.chargeableGain)}
+                    </div>
+                    ` : ''}
+                    <div class="result-row total-row">
+                        <span class="result-label"><strong>Total Company Tax</strong></span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.totalCompanyTax)}</span>
+                    </div>
+                </div>
+            `;
+
+            // Employee Taxes (PAYE)
+            html += `
+                <div class="result-card">
+                    <h3>👥 Employee Taxes (PAYE)</h3>
+                    <div class="result-row total-row">
+                        <span class="result-label"><strong>Total PAYE</strong></span>
+                        <span class="result-value">${formatCurrency(results.employeeTaxes.totalPAYE)}</span>
+                    </div>
+                    <div class="note">
+                        PAYE is deducted from employee salaries and remitted by company to FIRS
+                    </div>
+            `;
+
+            if (results.employeeTaxes.payeDetails.length > 0) {
+                html += `<div style="margin-top: 15px;"><strong>Per-Employee Breakdown:</strong></div>`;
+                results.employeeTaxes.payeDetails.forEach(emp => {
+                    html += `
+                        <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em;">
+                            <strong>Employee ${emp.employee}</strong><br>
+                            Gross Salary: ${formatCurrency(emp.salary)}<br>
+                            CRA: ${formatCurrency(emp.cra)}<br>
+                            Taxable Income: ${formatCurrency(emp.taxableIncome)}<br>
+                            PAYE: ${formatCurrency(emp.paye)}<br>
+                            Net Salary: <strong>${formatCurrency(emp.netSalary)}</strong>
+                        </div>
+                    `;
+                });
+            }
+
+            html += `</div>`;
+
+            // VAT Information
+            html += `
+                <div class="result-card">
+                    <h3>🧾 VAT Information</h3>
+                    <div class="result-row">
+                        <span class="result-label">VAT Collected (7.5%)</span>
+                        <span class="result-value">${formatCurrency(results.vat.vatCollected)}</span>
+                    </div>
+                    <div class="note">
+                        VAT is collected from customers and remitted to FIRS. This is not a company expense.
+                    </div>
+                </div>
+            `;
+
+            // WHT Information
+            html += `
+                <div class="result-card">
+                    <h3>📋 Withholding Tax Information</h3>
+                    <div class="result-row">
+                        <span class="result-label">Income Subject to WHT</span>
+                        <span class="result-value">${formatCurrency(results.wht.whtIncome)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">WHT Paid</span>
+                        <span class="result-value">${formatCurrency(results.wht.whtPaid)}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">WHT Credit Applied</span>
+                        <span class="result-value">${formatCurrency(results.wht.whtCredit)}</span>
+                    </div>
+                    <div class="note">
+                        WHT is a prepayment mechanism credited against final CIT liability
+                    </div>
+                </div>
+            `;
+
+            // Net Income
+            html += `
+                <div class="result-card" style="border-left-color: #10b981;">
+                    <h3>💰 Net Income (After Company Taxes)</h3>
+                    <div class="result-row">
+                        <span class="result-label">Net Annual Profit</span>
+                        <span class="result-value ${results.netIncome.netProfit >= 0 ? 'positive' : 'negative'}">${formatCurrency(results.netIncome.netProfit)}</span>
+                    </div>
+                    <div class="result-row total-row">
+                        <span class="result-label"><strong>Monthly Net Profit</strong></span>
+                        <span class="result-value ${results.netIncome.monthlyNetProfit >= 0 ? 'positive' : 'negative'}">${formatCurrency(results.netIncome.monthlyNetProfit)}</span>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // Add employee
+        function addEmployee() {
+            employeeCount++;
+            const container = document.getElementById('employeeContainer');
+            const newEmployee = document.createElement('div');
+            newEmployee.className = 'employee-section';
+            newEmployee.setAttribute('data-employee', employeeCount);
+            newEmployee.innerHTML = `
+                <div class="employee-header">
+                    <label><strong>Employee ${employeeCount} - Annual Salary (₦)</strong></label>
+                    <button type="button" class="btn btn-remove" onclick="removeEmployee(${employeeCount})">Remove</button>
+                </div>
+                <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+            `;
+            container.appendChild(newEmployee);
+        }
+
+        // Remove employee
+        function removeEmployee(id) {
+            const employee = document.querySelector(`[data-employee="${id}"]`);
+            if (employee) {
+                employee.remove();
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all fields?')) {
+                document.getElementById('grossIncome').value = '';
+                document.getElementById('operatingExpenses').value = '';
+                document.getElementById('assetProceeds').value = '0';
+                document.getElementById('assetCost').value = '0';
+                document.getElementById('vatSales').value = '0';
+                document.getElementById('whtIncome').value = '0';
+                document.getElementById('whtPaid').value = '0';
+
+                // Reset employees
+                const container = document.getElementById('employeeContainer');
+                container.innerHTML = `
+                    <div class="employee-section" data-employee="1">
+                        <div class="employee-header">
+                            <label><strong>Employee 1 - Annual Salary (₦)</strong></label>
+                        </div>
+                        <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+                    </div>
+                `;
+                employeeCount = 1;
+
+                // Reset results
+                document.getElementById('resultsContainer').innerHTML = `
+                    <div class="no-results">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3>No Calculations Yet</h3>
+                        <p>Fill in the form and click "Calculate Taxes" to see your results</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Add keyboard support
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateTaxes();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
