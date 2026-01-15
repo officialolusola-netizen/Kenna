@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nigerian Tax Calculator 2025 - Offline</title>
+    <title>Nigerian Tax Calculator - Nigeria Tax Act 2025</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #008751 0%, #10b981 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
@@ -29,7 +29,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #008751 0%, #006d41 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -47,11 +47,21 @@
 
         .offline-badge {
             display: inline-block;
-            background: #10b981;
+            background: #fbbf24;
+            color: #78350f;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.9em;
             margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .effective-date {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.95em;
         }
 
         .content {
@@ -75,10 +85,10 @@
 
         .section-title {
             font-size: 1.5em;
-            color: #1e3c72;
+            color: #006d41;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #10b981;
         }
 
         .form-group {
@@ -104,8 +114,8 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
         .form-group input[type="number"] {
@@ -120,7 +130,7 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -135,7 +145,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
         }
 
         .btn:active {
@@ -143,7 +153,7 @@
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
             margin-top: 10px;
         }
 
@@ -173,11 +183,11 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #10b981;
         }
 
         .result-card h3 {
-            color: #1e3c72;
+            color: #006d41;
             margin-bottom: 15px;
             font-size: 1.2em;
         }
@@ -200,7 +210,7 @@
 
         .result-value {
             font-weight: 700;
-            color: #1e3c72;
+            color: #006d41;
             font-family: 'Courier New', monospace;
         }
 
@@ -212,6 +222,10 @@
             color: #10b981;
         }
 
+        .result-value.exempt {
+            color: #8b5cf6;
+        }
+
         .total-row {
             background: #f1f5f9;
             margin: -10px -10px 15px -10px;
@@ -221,7 +235,7 @@
 
         .total-row .result-value {
             font-size: 1.3em;
-            color: #1e3c72;
+            color: #006d41;
         }
 
         .note {
@@ -250,6 +264,44 @@
         .info-box p {
             font-size: 0.9em;
             color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 3px solid #dc2626;
+        }
+
+        .warning-box h4 {
+            color: #991b1b;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            font-size: 0.9em;
+            color: #991b1b;
+            line-height: 1.5;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 3px solid #10b981;
+        }
+
+        .success-box h4 {
+            color: #065f46;
+            margin-bottom: 8px;
+        }
+
+        .success-box p {
+            font-size: 0.9em;
+            color: #065f46;
             line-height: 1.5;
         }
 
@@ -282,38 +334,37 @@
         }
 
         .footer a {
-            color: #60a5fa;
+            color: #10b981;
             text-decoration: none;
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
+        .checkbox-group {
+            margin-top: 10px;
         }
 
-        .spinner {
-            border: 3px solid #f3f4f6;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🇳🇬 Nigerian Tax Calculator 2025</h1>
-            <p>Comprehensive Multi-Tax Calculator for Companies</p>
+            <h1>🇳🇬 Nigerian Tax Calculator</h1>
+            <p>Based on Nigeria Tax Act, 2025 (Signed June 26, 2025)</p>
             <span class="offline-badge">✓ Works Offline</span>
+            <div class="effective-date">
+                <strong>⚠️ Effective Date: January 1, 2026</strong><br>
+                <small>This calculator reflects the new tax laws that take effect in 2026</small>
+            </div>
         </div>
 
         <div class="content">
@@ -322,8 +373,8 @@
                 <h2 class="section-title">Company Information</h2>
 
                 <div class="info-box">
-                    <h4>📋 Instructions</h4>
-                    <p>Fill in the fields below to calculate your company's tax obligations under Nigerian Tax Act 2025. All amounts should be in Nigerian Naira (₦).</p>
+                    <h4>📋 Nigeria Tax Act 2025</h4>
+                    <p>This calculator uses the correct rates from the Nigeria Tax Act, 2025 which takes effect January 1, 2026. All amounts in Nigerian Naira (₦).</p>
                 </div>
 
                 <div class="form-group">
@@ -336,6 +387,14 @@
                     <input type="number" id="operatingExpenses" placeholder="e.g., 20000000" min="0" step="0.01" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="fixedAssets">Total Fixed Assets (₦) *</label>
+                    <input type="number" id="fixedAssets" placeholder="e.g., 100000000" min="0" step="0.01" required>
+                    <div class="note" style="margin-top: 8px;">
+                        Required to determine Small Company status (≤₦250M fixed assets)
+                    </div>
+                </div>
+
                 <h2 class="section-title" style="margin-top: 30px;">Employee Information</h2>
 
                 <div id="employeeContainer">
@@ -344,6 +403,13 @@
                             <label><strong>Employee 1 - Annual Salary (₦)</strong></label>
                         </div>
                         <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label>Annual Rent Paid by Employee (₦)</label>
+                            <input type="number" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
+                            <div class="note" style="margin-top: 5px; font-size: 0.85em;">
+                                For Rent Relief calculation (20% of rent, max ₦500k)
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -393,17 +459,12 @@
                         <p>Fill in the form and click "Calculate Taxes" to see your results</p>
                     </div>
                 </div>
-
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Calculating...</p>
-                </div>
             </div>
         </div>
 
         <div class="footer">
-            <p><strong>Nigerian Tax Calculator 2025</strong> - Offline Version</p>
-            <p>Based on Nigerian Tax Act 2025 | For informational purposes only</p>
+            <p><strong>Nigerian Tax Calculator</strong> - Nigeria Tax Act, 2025 (Effective Jan 1, 2026)</p>
+            <p>Signed: June 26, 2025 | For informational purposes only</p>
             <p style="margin-top: 10px; font-size: 0.85em;">Consult a qualified tax professional for official advice</p>
         </div>
     </div>
@@ -419,26 +480,36 @@
             });
         }
 
-        // Calculate PAYE using Nigerian progressive tax bands
-        function calculatePAYE(annualSalary) {
-            if (annualSalary <= 0) return { tax: 0, cra: 0, taxableIncome: 0 };
+        // Calculate PAYE using Nigeria Tax Act 2025 progressive tax bands
+        function calculatePAYE(annualSalary, annualRentPaid) {
+            if (annualSalary <= 0) return {
+                tax: 0,
+                rentRelief: 0,
+                taxableIncome: annualSalary,
+                netSalary: annualSalary,
+                taxFree: false
+            };
 
-            // Consolidated Relief Allowance (CRA): Higher of 1% of gross income or ₦200,000 + 20% of gross
-            const cra = Math.max(annualSalary * 0.01, 200000 + (annualSalary * 0.20));
-            const taxableIncome = Math.max(0, annualSalary - cra);
+            // Rent Relief: 20% of annual rent paid, capped at ₦500,000
+            // (Replaces the old Consolidated Relief Allowance)
+            const rentRelief = Math.min(annualRentPaid * 0.20, 500000);
 
-            // Progressive tax bands
+            const taxableIncome = Math.max(0, annualSalary - rentRelief);
+
+            // Nigeria Tax Act 2025 Progressive Tax Bands (Effective Jan 1, 2026)
+            // First ₦800,000 is TAX-FREE!
             const taxBands = [
-                { limit: 300000, rate: 0.07 },
-                { limit: 300000, rate: 0.11 },
-                { limit: 500000, rate: 0.15 },
-                { limit: 500000, rate: 0.19 },
-                { limit: 1600000, rate: 0.21 },
-                { limit: Infinity, rate: 0.24 }
+                { limit: 800000, rate: 0.00 },      // 0% on first ₦800k
+                { limit: 2200000, rate: 0.15 },     // 15% on next ₦2.2M (₦800k-₦3M)
+                { limit: 7000000, rate: 0.18 },     // 18% on next ₦7M (₦3M-₦10M)
+                { limit: 15000000, rate: 0.21 },    // 21% on next ₦15M (₦10M-₦25M)
+                { limit: 25000000, rate: 0.23 },    // 23% on next ₦25M (₦25M-₦50M)
+                { limit: Infinity, rate: 0.25 }     // 25% on above ₦50M
             ];
 
             let totalTax = 0;
             let remaining = taxableIncome;
+            const taxFree = taxableIncome <= 800000;
 
             for (const band of taxBands) {
                 if (remaining <= 0) break;
@@ -449,9 +520,10 @@
 
             return {
                 tax: totalTax,
-                cra: cra,
+                rentRelief: rentRelief,
                 taxableIncome: taxableIncome,
-                netSalary: annualSalary - totalTax
+                netSalary: annualSalary - totalTax,
+                taxFree: taxFree
             };
         }
 
@@ -460,6 +532,7 @@
             // Get input values
             const grossIncome = parseFloat(document.getElementById('grossIncome').value) || 0;
             const operatingExpenses = parseFloat(document.getElementById('operatingExpenses').value) || 0;
+            const fixedAssets = parseFloat(document.getElementById('fixedAssets').value) || 0;
             const assetProceeds = parseFloat(document.getElementById('assetProceeds').value) || 0;
             const assetCost = parseFloat(document.getElementById('assetCost').value) || 0;
             const vatSales = parseFloat(document.getElementById('vatSales').value) || 0;
@@ -472,57 +545,115 @@
                 return;
             }
 
-            // Get employee salaries
-            const employeeSalaries = [];
-            document.querySelectorAll('.employee-salary').forEach(input => {
+            // Get employee salaries and rent
+            const employeeData = [];
+            const salaryInputs = document.querySelectorAll('.employee-salary');
+            const rentInputs = document.querySelectorAll('.employee-rent');
+
+            salaryInputs.forEach((input, index) => {
                 const salary = parseFloat(input.value) || 0;
+                const rent = parseFloat(rentInputs[index].value) || 0;
                 if (salary > 0) {
-                    employeeSalaries.push(salary);
+                    employeeData.push({ salary, rent });
                 }
             });
 
-            // Tax rates
-            const CIT_RATE = 0.30;
-            const VAT_RATE = 0.075;
-            const CGT_RATE = 0.10;
-            const TERTIARY_ED_TAX = 0.02;
-            const MIN_TAX_RATE = 0.005;
+            // Tax rates under Nigeria Tax Act 2025
+            const CIT_RATE = 0.30;              // Company Income Tax (30%)
+            const VAT_RATE = 0.075;             // VAT remains 7.5%
+            const CGT_RATE = 0.30;              // CGT increased to 30% (was 10%)
+            const DEVELOPMENT_LEVY = 0.04;      // 4% Development Levy (replaces TET)
+            const MIN_TAX_RATE = 0.005;         // Minimum Tax 0.5%
+            const MIN_ETR = 0.15;               // Minimum Effective Tax Rate 15%
+
+            // Small Company Thresholds (Nigeria Tax Act 2025)
+            const SMALL_COMPANY_TURNOVER = 50000000;    // ₦50M
+            const SMALL_COMPANY_ASSETS = 250000000;      // ₦250M
+
+            // Large Company Threshold for Minimum ETR
+            const LARGE_COMPANY_THRESHOLD = 20000000000; // ₦20B
+
+            // Check if company qualifies as "Small Company"
+            const isSmallCompany = (grossIncome <= SMALL_COMPANY_TURNOVER) &&
+                                   (fixedAssets <= SMALL_COMPANY_ASSETS);
 
             // Calculate assessable profit
             const assessableProfit = grossIncome - operatingExpenses;
 
             // Company Income Tax
-            const citTax = assessableProfit > 0 ? assessableProfit * CIT_RATE : 0;
+            let citTax = 0;
+            let developmentLevy = 0;
+            let minimumTax = 0;
+            let effectiveTaxRate = 0;
+            let minETRLevy = 0;
 
-            // Apply WHT as credit
+            if (isSmallCompany) {
+                // Small companies are EXEMPT from CIT, CGT, and Development Levy
+                citTax = 0;
+                developmentLevy = 0;
+                minimumTax = 0;
+            } else {
+                // Regular companies pay 30% CIT
+                citTax = assessableProfit > 0 ? assessableProfit * CIT_RATE : 0;
+
+                // Development Levy: 4% on assessable profit (replaces TET, NASENI, etc.)
+                developmentLevy = assessableProfit > 0 ? assessableProfit * DEVELOPMENT_LEVY : 0;
+
+                // Minimum Tax: 0.5% of gross turnover (when no profit)
+                minimumTax = grossIncome * MIN_TAX_RATE;
+
+                // Calculate Effective Tax Rate and check if Minimum ETR applies
+                if (grossIncome >= LARGE_COMPANY_THRESHOLD && assessableProfit > 0) {
+                    const totalTaxBeforeMinETR = citTax + developmentLevy;
+                    effectiveTaxRate = totalTaxBeforeMinETR / assessableProfit;
+
+                    if (effectiveTaxRate < MIN_ETR) {
+                        // Large company must pay additional levy to reach 15% ETR
+                        const minETRAmount = assessableProfit * MIN_ETR;
+                        minETRLevy = minETRAmount - totalTaxBeforeMinETR;
+                    }
+                }
+            }
+
+            // Apply WHT as credit against CIT
             const whtCredit = Math.min(whtPaid, citTax);
             const citAfterWht = Math.max(0, citTax - whtCredit);
 
-            // Minimum Tax
-            const minimumTax = grossIncome * MIN_TAX_RATE;
-            const companyIncomeTax = assessableProfit <= 0 ? minimumTax : Math.max(citAfterWht, 0);
-
-            // Tertiary Education Tax
-            const tertiaryTax = assessableProfit > 0 ? assessableProfit * TERTIARY_ED_TAX : 0;
+            // Company pays the higher of CIT or Minimum Tax (for non-small companies)
+            let companyIncomeTax = citAfterWht;
+            if (!isSmallCompany && assessableProfit <= 0) {
+                companyIncomeTax = Math.max(citAfterWht, minimumTax);
+            }
 
             // Capital Gains Tax
+            let cgtTax = 0;
             const chargeableGain = Math.max(0, assetProceeds - assetCost);
-            const cgtTax = chargeableGain * CGT_RATE;
+
+            if (!isSmallCompany) {
+                // CGT is now 30% (increased from 10%)
+                // Exemption: disposal <₦150M and gains <₦10M
+                if (assetProceeds >= 150000000 || chargeableGain >= 10000000) {
+                    cgtTax = chargeableGain * CGT_RATE;
+                }
+            }
+            // Small companies are exempt from CGT
 
             // PAYE Calculations
             const payeDetails = [];
             let totalPAYE = 0;
 
-            employeeSalaries.forEach((salary, index) => {
-                const paye = calculatePAYE(salary);
+            employeeData.forEach((emp, index) => {
+                const paye = calculatePAYE(emp.salary, emp.rent);
                 totalPAYE += paye.tax;
                 payeDetails.push({
                     employee: index + 1,
-                    salary: salary,
-                    cra: paye.cra,
+                    salary: emp.salary,
+                    rent: emp.rent,
+                    rentRelief: paye.rentRelief,
                     taxableIncome: paye.taxableIncome,
                     paye: paye.tax,
-                    netSalary: paye.netSalary
+                    netSalary: paye.netSalary,
+                    taxFree: paye.taxFree
                 });
             });
 
@@ -530,7 +661,7 @@
             const vatCollected = vatSales * VAT_RATE;
 
             // Total company tax liability
-            const totalCompanyTax = companyIncomeTax + tertiaryTax + cgtTax;
+            const totalCompanyTax = companyIncomeTax + developmentLevy + cgtTax + minETRLevy;
 
             // Net profit
             const netProfit = assessableProfit - totalCompanyTax;
@@ -538,6 +669,11 @@
 
             // Display results
             displayResults({
+                companyStatus: {
+                    isSmallCompany,
+                    grossIncome,
+                    fixedAssets
+                },
                 revenue: {
                     grossIncome,
                     operatingExpenses,
@@ -547,11 +683,14 @@
                     citTax,
                     whtCredit,
                     citAfterWht,
-                    minimumTax: assessableProfit <= 0 ? minimumTax : 0,
+                    minimumTax: (assessableProfit <= 0 && !isSmallCompany) ? minimumTax : 0,
                     companyIncomeTax,
-                    tertiaryTax,
+                    developmentLevy,
                     cgtTax,
-                    totalCompanyTax
+                    effectiveTaxRate: effectiveTaxRate * 100,
+                    minETRLevy,
+                    totalCompanyTax,
+                    isLargeCompany: grossIncome >= LARGE_COMPANY_THRESHOLD
                 },
                 employeeTaxes: {
                     totalPAYE,
@@ -570,7 +709,8 @@
                     monthlyNetProfit
                 },
                 additional: {
-                    chargeableGain
+                    chargeableGain,
+                    assetProceeds
                 }
             });
         }
@@ -578,8 +718,39 @@
         // Display results
         function displayResults(results) {
             const container = document.getElementById('resultsContainer');
-
             let html = '';
+
+            // Company Status
+            if (results.companyStatus.isSmallCompany) {
+                html += `
+                    <div class="success-box">
+                        <h4>🎉 Small Company Status - Tax Exempt!</h4>
+                        <p><strong>Your company qualifies as a Small Company under the Nigeria Tax Act 2025.</strong></p>
+                        <p style="margin-top: 8px;">
+                            ✓ Turnover: ${formatCurrency(results.companyStatus.grossIncome)} (≤₦50M)<br>
+                            ✓ Fixed Assets: ${formatCurrency(results.companyStatus.fixedAssets)} (≤₦250M)
+                        </p>
+                        <p style="margin-top: 8px;">
+                            <strong>Exemptions:</strong> Company Income Tax (0%), Capital Gains Tax (0%), Development Levy (0%), Withholding Tax
+                        </p>
+                    </div>
+                `;
+            } else if (results.companyTaxes.isLargeCompany) {
+                html += `
+                    <div class="warning-box">
+                        <h4>⚠️ Large Company - Minimum ETR Applies</h4>
+                        <p><strong>Your company qualifies as a Large Company (turnover ≥₦20B)</strong></p>
+                        <p style="margin-top: 8px;">
+                            Companies with ₦20 billion+ annual revenue must maintain a minimum effective tax rate of 15%.
+                        </p>
+                        ${results.companyTaxes.minETRLevy > 0 ? `
+                        <p style="margin-top: 8px; color: #dc2626;">
+                            <strong>Additional levy required:</strong> ${formatCurrency(results.companyTaxes.minETRLevy)} to reach 15% minimum ETR
+                        </p>
+                        ` : ''}
+                    </div>
+                `;
+            }
 
             // Revenue Breakdown
             html += `
@@ -604,6 +775,20 @@
             html += `
                 <div class="result-card">
                     <h3>🏢 Company Tax Liability</h3>
+            `;
+
+            if (results.companyStatus.isSmallCompany) {
+                html += `
+                    <div class="result-row total-row">
+                        <span class="result-label"><strong>Total Company Tax</strong></span>
+                        <span class="result-value exempt">₦0.00 (EXEMPT)</span>
+                    </div>
+                    <div class="note">
+                        As a Small Company, you are exempt from CIT, CGT, Development Levy, and WHT under the Nigeria Tax Act 2025.
+                    </div>
+                `;
+            } else {
+                html += `
                     <div class="result-row">
                         <span class="result-label">Company Income Tax (30%)</span>
                         <span class="result-value">${formatCurrency(results.companyTaxes.citTax)}</span>
@@ -623,24 +808,46 @@
                     </div>
                     ` : ''}
                     <div class="result-row">
-                        <span class="result-label">Tertiary Education Tax (2%)</span>
-                        <span class="result-value">${formatCurrency(results.companyTaxes.tertiaryTax)}</span>
+                        <span class="result-label">Development Levy (4%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.developmentLevy)}</span>
+                    </div>
+                    <div class="note" style="font-size: 0.85em;">
+                        Development Levy replaces Tertiary Education Tax, NASENI Levy, IT Levy, and Police Trust Fund levy
                     </div>
                     <div class="result-row">
-                        <span class="result-label">Capital Gains Tax (10%)</span>
+                        <span class="result-label">Capital Gains Tax (30%)</span>
                         <span class="result-value">${formatCurrency(results.companyTaxes.cgtTax)}</span>
                     </div>
                     ${results.additional.chargeableGain > 0 ? `
-                    <div class="note">
-                        Chargeable Gain: ${formatCurrency(results.additional.chargeableGain)}
+                    <div class="note" style="font-size: 0.85em;">
+                        CGT rate increased from 10% to 30%. Chargeable Gain: ${formatCurrency(results.additional.chargeableGain)}
+                        ${results.additional.assetProceeds < 150000000 && results.additional.chargeableGain < 10000000 ?
+                        '<br>✓ Exempt: Disposal <₦150M and gains <₦10M' : ''}
+                    </div>
+                    ` : ''}
+                    ${results.companyTaxes.isLargeCompany && results.companyTaxes.effectiveTaxRate > 0 ? `
+                    <div class="result-row">
+                        <span class="result-label">Effective Tax Rate</span>
+                        <span class="result-value">${results.companyTaxes.effectiveTaxRate.toFixed(2)}%</span>
+                    </div>
+                    ` : ''}
+                    ${results.companyTaxes.minETRLevy > 0 ? `
+                    <div class="result-row">
+                        <span class="result-label">Min ETR Levy (15%)</span>
+                        <span class="result-value">${formatCurrency(results.companyTaxes.minETRLevy)}</span>
+                    </div>
+                    <div class="note" style="font-size: 0.85em;">
+                        Large companies (₦20B+ revenue) must maintain minimum 15% effective tax rate
                     </div>
                     ` : ''}
                     <div class="result-row total-row">
                         <span class="result-label"><strong>Total Company Tax</strong></span>
                         <span class="result-value">${formatCurrency(results.companyTaxes.totalCompanyTax)}</span>
                     </div>
-                </div>
-            `;
+                `;
+            }
+
+            html += `</div>`;
 
             // Employee Taxes (PAYE)
             html += `
@@ -651,7 +858,8 @@
                         <span class="result-value">${formatCurrency(results.employeeTaxes.totalPAYE)}</span>
                     </div>
                     <div class="note">
-                        PAYE is deducted from employee salaries and remitted by company to FIRS
+                        PAYE calculated using Nigeria Tax Act 2025 rates (0%, 15%, 18%, 21%, 23%, 25%).
+                        First ₦800,000 is tax-free! Rent Relief replaced CRA.
                     </div>
             `;
 
@@ -659,13 +867,15 @@
                 html += `<div style="margin-top: 15px;"><strong>Per-Employee Breakdown:</strong></div>`;
                 results.employeeTaxes.payeDetails.forEach(emp => {
                     html += `
-                        <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em;">
-                            <strong>Employee ${emp.employee}</strong><br>
+                        <div style="background: ${emp.taxFree ? '#d1fae5' : 'white'}; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em; ${emp.taxFree ? 'border: 2px solid #10b981;' : ''}">
+                            <strong>Employee ${emp.employee}</strong> ${emp.taxFree ? '<span style="color: #10b981; font-weight: bold;">🎉 TAX-FREE</span>' : ''}<br>
                             Gross Salary: ${formatCurrency(emp.salary)}<br>
-                            CRA: ${formatCurrency(emp.cra)}<br>
+                            ${emp.rent > 0 ? `Annual Rent: ${formatCurrency(emp.rent)}<br>` : ''}
+                            Rent Relief: ${formatCurrency(emp.rentRelief)}<br>
                             Taxable Income: ${formatCurrency(emp.taxableIncome)}<br>
                             PAYE: ${formatCurrency(emp.paye)}<br>
                             Net Salary: <strong>${formatCurrency(emp.netSalary)}</strong>
+                            ${emp.taxFree ? '<br><small style="color: #10b981;">✓ Taxable income ≤₦800,000 - Fully exempt!</small>' : ''}
                         </div>
                     `;
                 });
@@ -682,32 +892,44 @@
                         <span class="result-value">${formatCurrency(results.vat.vatCollected)}</span>
                     </div>
                     <div class="note">
-                        VAT is collected from customers and remitted to FIRS. This is not a company expense.
+                        VAT rate remains 7.5% under the Nigeria Tax Act 2025.
+                        VAT is collected from customers and remitted to FIRS - not a company expense.
                     </div>
                 </div>
             `;
 
             // WHT Information
-            html += `
-                <div class="result-card">
-                    <h3>📋 Withholding Tax Information</h3>
-                    <div class="result-row">
-                        <span class="result-label">Income Subject to WHT</span>
-                        <span class="result-value">${formatCurrency(results.wht.whtIncome)}</span>
+            if (!results.companyStatus.isSmallCompany) {
+                html += `
+                    <div class="result-card">
+                        <h3>📋 Withholding Tax Information</h3>
+                        <div class="result-row">
+                            <span class="result-label">Income Subject to WHT</span>
+                            <span class="result-value">${formatCurrency(results.wht.whtIncome)}</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">WHT Paid</span>
+                            <span class="result-value">${formatCurrency(results.wht.whtPaid)}</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">WHT Credit Applied</span>
+                            <span class="result-value">${formatCurrency(results.wht.whtCredit)}</span>
+                        </div>
+                        <div class="note">
+                            WHT remains at 10% (standard rate). It's a prepayment mechanism credited against final CIT liability.
+                        </div>
                     </div>
-                    <div class="result-row">
-                        <span class="result-label">WHT Paid</span>
-                        <span class="result-value">${formatCurrency(results.wht.whtPaid)}</span>
+                `;
+            } else {
+                html += `
+                    <div class="result-card">
+                        <h3>📋 Withholding Tax Information</h3>
+                        <div class="note">
+                            <strong>Small Company Exemption:</strong> Your company is exempt from WHT deductions under the Nigeria Tax Act 2025.
+                        </div>
                     </div>
-                    <div class="result-row">
-                        <span class="result-label">WHT Credit Applied</span>
-                        <span class="result-value">${formatCurrency(results.wht.whtCredit)}</span>
-                    </div>
-                    <div class="note">
-                        WHT is a prepayment mechanism credited against final CIT liability
-                    </div>
-                </div>
-            `;
+                `;
+            }
 
             // Net Income
             html += `
@@ -740,6 +962,13 @@
                     <button type="button" class="btn btn-remove" onclick="removeEmployee(${employeeCount})">Remove</button>
                 </div>
                 <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+                <div class="form-group" style="margin-top: 10px;">
+                    <label>Annual Rent Paid by Employee (₦)</label>
+                    <input type="number" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
+                    <div class="note" style="margin-top: 5px; font-size: 0.85em;">
+                        For Rent Relief calculation (20% of rent, max ₦500k)
+                    </div>
+                </div>
             `;
             container.appendChild(newEmployee);
         }
@@ -757,6 +986,7 @@
             if (confirm('Are you sure you want to reset all fields?')) {
                 document.getElementById('grossIncome').value = '';
                 document.getElementById('operatingExpenses').value = '';
+                document.getElementById('fixedAssets').value = '';
                 document.getElementById('assetProceeds').value = '0';
                 document.getElementById('assetCost').value = '0';
                 document.getElementById('vatSales').value = '0';
@@ -771,6 +1001,13 @@
                             <label><strong>Employee 1 - Annual Salary (₦)</strong></label>
                         </div>
                         <input type="number" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01">
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label>Annual Rent Paid by Employee (₦)</label>
+                            <input type="number" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
+                            <div class="note" style="margin-top: 5px; font-size: 0.85em;">
+                                For Rent Relief calculation (20% of rent, max ₦500k)
+                            </div>
+                        </div>
                     </div>
                 `;
                 employeeCount = 1;

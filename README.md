@@ -1,11 +1,14 @@
 # Kenna
 All work pertaining to kenna
 
-## 🧮 Nigerian Tax Calculator 2025
+## 🧮 Nigerian Tax Calculator - Nigeria Tax Act 2025
 
 ### Offline Multi-Tax Calculator for Nigerian Companies
 
-A comprehensive, offline-capable web-based calculator for computing Nigerian company taxes including CIT, PAYE, VAT, WHT, CGT, and Tertiary Education Tax.
+A comprehensive, offline-capable web-based calculator based on the **Nigeria Tax Act, 2025** (Signed June 26, 2025 | Effective January 1, 2026). Computes all major Nigerian company taxes including CIT, PAYE, VAT, WHT, CGT, and Development Levy.
+
+### ⚠️ Important: Effective Date
+**The Nigeria Tax Act, 2025 takes effect on January 1, 2026.** This calculator implements the new tax provisions that will apply starting 2026.
 
 ### 📥 Quick Access
 
@@ -21,43 +24,58 @@ A comprehensive, offline-capable web-based calculator for computing Nigerian com
 python launch_calculator.py
 ```
 
-### ✨ Features
+### ✨ Key Features (Nigeria Tax Act 2025)
 
-- ✅ **Company Income Tax (CIT)** - 30% calculation with WHT credits
-- ✅ **PAYE** - Progressive tax bands (7% to 24%) with CRA
+- ✅ **Company Income Tax (CIT)** - 30% with WHT credit system
+- ✅ **PAYE** - New progressive bands: **0%, 15%, 18%, 21%, 23%, 25%**
+- ✅ **Tax-Free Threshold** - First **₦800,000** completely tax-free!
+- ✅ **Rent Relief** - Replaces CRA: 20% of rent (max ₦500k)
+- ✅ **Capital Gains Tax (CGT)** - **30%** (increased from 10%)
+- ✅ **Development Levy** - **4%** (replaces TET, NASENI, IT Levy, etc.)
+- ✅ **Small Company Exemption** - 0% tax for companies ≤₦50M turnover & ≤₦250M assets
+- ✅ **Minimum ETR** - 15% for large companies (₦20B+ revenue)
 - ✅ **VAT** - 7.5% informational tracking
-- ✅ **Capital Gains Tax (CGT)** - 10% on chargeable gains
-- ✅ **Withholding Tax (WHT)** - Credit system
-- ✅ **Tertiary Education Tax** - 2% on assessable profit
-- ✅ **Minimum Tax** - 0.5% when no profit
-- ✅ **Per-Employee PAYE Breakdown**
-- ✅ **Professional UI** - Modern, responsive design
-- ✅ **100% Offline** - No internet needed
+- ✅ **Withholding Tax (WHT)** - 10% standard rate (credit against CIT)
+- ✅ **Per-Employee PAYE** - Individual breakdowns with tax-free status indicators
+- ✅ **Professional UI** - Modern, responsive design with Nigerian colors
+- ✅ **100% Offline** - No internet needed after download
 - ✅ **Mobile Friendly** - Works on all devices
 
 ### 📖 Documentation
 
 See [CALCULATOR_README.md](CALCULATOR_README.md) for:
 - Detailed installation instructions
+- Tax rates reference (Nigeria Tax Act 2025)
+- What's new compared to previous law
 - Usage guide with examples
-- Tax rates reference
 - Troubleshooting tips
-- Technical details
+- Official sources and references
 
 ### 🎯 What's Calculated
 
-The calculator computes all major Nigerian business taxes:
+The calculator computes all major Nigerian business taxes under the Nigeria Tax Act 2025:
 
 1. **Revenue Analysis** - Gross income, expenses, assessable profit
-2. **Company Taxes** - CIT, Tertiary Education Tax, CGT, Minimum Tax
-3. **Employee Taxes** - Individual PAYE calculations with progressive bands
-4. **VAT Information** - Collection and remittance tracking
-5. **WHT Credits** - Proper application against CIT liability
-6. **Net Income** - Monthly and annual profit after taxes
+2. **Company Status** - Small Company exemption determination
+3. **Company Taxes** - CIT, Development Levy (4%), CGT (30%), Minimum Tax, Minimum ETR (15%)
+4. **Employee Taxes** - PAYE with new progressive bands (0%-25%), Rent Relief, tax-free status
+5. **VAT Information** - 7.5% collection and remittance tracking
+6. **WHT Credits** - Proper application against CIT liability
+7. **Net Income** - Monthly and annual profit after all company taxes
+
+### 🎉 What's New in Nigeria Tax Act 2025
+
+**Major Changes:**
+- **Tax-Free Income**: First ₦800,000 is tax-free (PAYE)
+- **CGT Increase**: 10% → 30%
+- **Development Levy**: Consolidates 4 separate levies into one 4% levy
+- **Small Company Exemption**: Full tax exemption for qualifying businesses
+- **Rent Relief**: Replaces the old Consolidated Relief Allowance (CRA)
+- **Minimum ETR**: 15% for companies with ₦20B+ revenue
 
 ### ⚠️ Disclaimer
 
-This calculator is for informational purposes only. Always consult a qualified tax professional for official tax advice and compliance.
+This calculator is for informational purposes only and implements the Nigeria Tax Act, 2025 (Effective Jan 1, 2026). Always consult a qualified tax professional for official tax advice and compliance.
 
 ---
 
