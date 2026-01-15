@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nigerian PAYE Calculator - Nigeria Tax Act 2025</title>
+    <title>PAYE Calculator - Nigeria</title>
     <style>
         * {
             margin: 0;
@@ -12,351 +12,341 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #008751 0%, #10b981 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #202124;
             padding: 20px;
-            color: #333;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #008751 0%, #006d41 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+            padding: 24px;
+            border-bottom: 1px solid #e8eaed;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 4px;
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .offline-badge {
-            display: inline-block;
-            background: #fbbf24;
-            color: #78350f;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        .effective-date {
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 0.95em;
+            font-size: 14px;
+            color: #5f6368;
         }
 
         .content {
-            padding: 30px;
+            padding: 24px;
         }
 
-        .info-box {
-            background: #dbeafe;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 3px solid #3b82f6;
+        .info-banner {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            border-radius: 4px;
         }
 
-        .info-box h4 {
-            color: #1e40af;
-            margin-bottom: 8px;
-        }
-
-        .info-box p {
-            font-size: 0.9em;
-            color: #1e40af;
-            line-height: 1.5;
-        }
-
-        .tax-bands-table {
-            width: 100%;
-            margin-top: 10px;
-            border-collapse: collapse;
-            font-size: 0.85em;
-        }
-
-        .tax-bands-table th,
-        .tax-bands-table td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid rgba(30, 64, 175, 0.2);
-        }
-
-        .tax-bands-table th {
-            font-weight: 600;
-            color: #1e40af;
+        .info-banner p {
+            font-size: 14px;
+            color: #1967d2;
+            margin: 0;
         }
 
         .section-title {
-            font-size: 1.5em;
-            color: #006d41;
-            margin-bottom: 20px;
-            margin-top: 30px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #10b981;
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+            margin: 24px 0 16px 0;
         }
 
         .section-title:first-of-type {
             margin-top: 0;
         }
 
-        .employee-section {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #10b981;
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        .employee-header {
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: white;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .input-group input:hover {
+            border-color: #bdc1c6;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 1px #1a73e8;
+        }
+
+        .employee-card {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .employee-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
-        .employee-header h3 {
-            color: #006d41;
-            font-size: 1.1em;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #555;
-            font-size: 0.95em;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-
-        .form-group input[type="number"] {
-            font-family: 'Courier New', monospace;
+        .employee-card-header h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
         }
 
         .btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
+            font-family: inherit;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
         }
 
-        .btn:active {
-            transform: translateY(0);
+        .btn-primary:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
         }
 
         .btn-add {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
             width: 100%;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
-        .btn-calculate {
-            width: 100%;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            margin-top: 10px;
-        }
-
-        .btn-reset {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            width: 100%;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            margin-top: 10px;
+        .btn-add:hover {
+            background: #f8f9fa;
         }
 
         .btn-remove {
-            background: #ef4444;
-            padding: 8px 15px;
-            font-size: 0.85em;
+            background: white;
+            color: #d93025;
+            border: 1px solid #dadce0;
+            padding: 6px 12px;
+            font-size: 13px;
         }
 
-        .note {
-            background: #fef3c7;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            color: #92400e;
-            margin-top: 5px;
-            border-left: 3px solid #f59e0b;
+        .btn-remove:hover {
+            background: #fce8e6;
         }
 
-        .results-section {
-            margin-top: 40px;
+        .helper-text {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 4px;
+        }
+
+        .results {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e8eaed;
         }
 
         .result-card {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #10b981;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e8eaed;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 16px;
         }
 
-        .result-card.tax-free {
-            background: #d1fae5;
-            border-left-color: #10b981;
+        .result-card.highlight {
+            background: #e8f5e9;
+            border-color: #34a853;
         }
 
         .result-card h3 {
-            color: #006d41;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 12px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .tax-free-badge {
-            background: #10b981;
+        .badge {
+            background: #34a853;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.7em;
-            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f3f4;
         }
 
         .result-row:last-child {
             border-bottom: none;
         }
 
-        .result-label {
+        .result-row.total {
             font-weight: 500;
-            color: #555;
+            padding-top: 12px;
+            margin-top: 4px;
+            border-top: 1px solid #e8eaed;
+        }
+
+        .result-label {
+            color: #5f6368;
         }
 
         .result-value {
-            font-weight: 700;
-            color: #006d41;
-            font-family: 'Courier New', monospace;
+            color: #202124;
+            font-weight: 500;
+            font-feature-settings: 'tnum';
         }
 
         .result-value.positive {
-            color: #10b981;
-        }
-
-        .total-row {
-            background: #f1f5f9;
-            margin: -10px -10px 15px -10px;
-            padding: 15px 10px;
-            border-radius: 8px;
-        }
-
-        .total-row .result-value {
-            font-size: 1.4em;
-            color: #006d41;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px 40px;
-            color: #94a3b8;
-        }
-
-        .no-results svg {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        .footer {
-            background: #1e293b;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
+            color: #34a853;
         }
 
         .breakdown-table {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 12px;
             border-collapse: collapse;
-            font-size: 0.9em;
-        }
-
-        .breakdown-table th,
-        .breakdown-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
         }
 
         .breakdown-table th {
-            background: #f8fafc;
-            font-weight: 600;
-            color: #006d41;
+            text-align: left;
+            padding: 8px;
+            background: #f8f9fa;
+            color: #5f6368;
+            font-weight: 500;
+            border-bottom: 1px solid #e8eaed;
         }
 
         .breakdown-table td {
-            font-family: 'Courier New', monospace;
+            padding: 8px;
+            border-bottom: 1px solid #f1f3f4;
+            font-feature-settings: 'tnum';
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
+        .breakdown-table tr:last-child td {
+            border-bottom: none;
+            font-weight: 500;
+        }
+
+        .tax-bands {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tax-bands h3 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #202124;
+        }
+
+        .tax-bands table {
+            width: 100%;
+            font-size: 13px;
+        }
+
+        .tax-bands td {
+            padding: 6px 0;
+            color: #5f6368;
+        }
+
+        .tax-bands td:last-child {
+            text-align: right;
+            color: #202124;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #5f6368;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+                box-shadow: none;
             }
 
             .result-row {
                 flex-direction: column;
-                gap: 5px;
+                gap: 4px;
             }
         }
     </style>
@@ -364,106 +354,64 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🇳🇬 Nigerian PAYE Calculator</h1>
-            <p>Pay As You Earn (Personal Income Tax)</p>
-            <p style="font-size: 0.95em; margin-top: 5px;">Based on Nigeria Tax Act, 2025</p>
-            <span class="offline-badge">✓ Works Offline</span>
-            <div class="effective-date">
-                <strong>⚠️ Effective Date: January 1, 2026</strong><br>
-                <small>This calculator uses the new PAYE rates that take effect in 2026</small>
-            </div>
+            <h1>PAYE Calculator</h1>
+            <p>Nigeria Tax Act, 2025 (Effective Jan 1, 2026)</p>
         </div>
 
         <div class="content">
-            <div class="info-box">
-                <h4>📋 Nigeria Tax Act 2025 - PAYE Tax Bands</h4>
-                <p>The new progressive tax rates with the first ₦800,000 completely tax-free!</p>
-                <table class="tax-bands-table">
-                    <thead>
-                        <tr>
-                            <th>Taxable Income Range</th>
-                            <th>Tax Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>First ₦800,000</td>
-                            <td><strong>0%</strong> (Tax-Free! 🎉)</td>
-                        </tr>
-                        <tr>
-                            <td>₦800,001 - ₦3,000,000</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td>₦3,000,001 - ₦10,000,000</td>
-                            <td>18%</td>
-                        </tr>
-                        <tr>
-                            <td>₦10,000,001 - ₦25,000,000</td>
-                            <td>21%</td>
-                        </tr>
-                        <tr>
-                            <td>₦25,000,001 - ₦50,000,000</td>
-                            <td>23%</td>
-                        </tr>
-                        <tr>
-                            <td>Above ₦50,000,000</td>
-                            <td>25%</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="note" style="margin-top: 15px;">
-                    <strong>Rent Relief:</strong> You can claim 20% of annual rent paid, capped at ₦500,000 (replaces the old Consolidated Relief Allowance)
-                </div>
+            <div class="info-banner">
+                <p><strong>Tax-free threshold:</strong> First ₦800,000 of taxable income is tax-free</p>
             </div>
 
-            <h2 class="section-title">Calculate Your PAYE</h2>
+            <div class="tax-bands">
+                <h3>Tax Rates</h3>
+                <table>
+                    <tr><td>First ₦800,000</td><td>0%</td></tr>
+                    <tr><td>₦800,001 - ₦3,000,000</td><td>15%</td></tr>
+                    <tr><td>₦3,000,001 - ₦10,000,000</td><td>18%</td></tr>
+                    <tr><td>₦10,000,001 - ₦25,000,000</td><td>21%</td></tr>
+                    <tr><td>₦25,000,001 - ₦50,000,000</td><td>23%</td></tr>
+                    <tr><td>Above ₦50,000,000</td><td>25%</td></tr>
+                </table>
+            </div>
+
+            <div class="section-title">Salary Information</div>
 
             <div id="employeeContainer">
-                <div class="employee-section" data-employee="1">
-                    <div class="employee-header">
+                <div class="employee-card" data-employee="1">
+                    <div class="employee-card-header">
                         <h3>Employee 1</h3>
                     </div>
-                    <div class="form-group">
-                        <label for="salary-1">Annual Gross Salary (₦) *</label>
-                        <input type="number" id="salary-1" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01" required>
+                    <div class="input-group">
+                        <label for="salary-1">Annual gross salary (₦)</label>
+                        <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
                     </div>
-                    <div class="form-group">
-                        <label for="rent-1">Annual Rent Paid (₦)</label>
-                        <input type="number" id="rent-1" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
-                        <div class="note">
-                            Optional: Enter annual rent to claim Rent Relief (20% of rent, max ₦500k)
-                        </div>
+                    <div class="input-group">
+                        <label for="rent-1">Annual rent paid (₦)</label>
+                        <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
                     </div>
                 </div>
             </div>
 
-            <button type="button" class="btn btn-add" onclick="addEmployee()">+ Add Another Employee/Salary</button>
-            <button type="button" class="btn btn-calculate" onclick="calculatePAYE()">Calculate PAYE</button>
-            <button type="button" class="btn btn-reset" onclick="resetForm()">Reset All</button>
+            <button type="button" class="btn btn-add" onclick="addEmployee()">Add another employee</button>
+            <button type="button" class="btn btn-primary" onclick="calculatePAYE()">Calculate</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear all</button>
 
-            <div class="results-section" id="resultsContainer">
-                <div class="no-results">
+            <div class="results" id="resultsContainer">
+                <div class="empty-state">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                     </svg>
-                    <h3>No Calculations Yet</h3>
-                    <p>Enter salary information above and click "Calculate PAYE"</p>
+                    <p>Enter salary information and click Calculate</p>
                 </div>
             </div>
-        </div>
-
-        <div class="footer">
-            <p><strong>Nigerian PAYE Calculator</strong> - Nigeria Tax Act, 2025 (Effective Jan 1, 2026)</p>
-            <p>Signed: June 26, 2025 | For informational purposes only</p>
-            <p style="margin-top: 10px; font-size: 0.85em;">Consult a qualified tax professional for official advice</p>
         </div>
     </div>
 
     <script>
         let employeeCount = 1;
 
-        // Format number as currency
         function formatCurrency(amount) {
             return '₦' + amount.toLocaleString('en-NG', {
                 minimumFractionDigits: 2,
@@ -471,7 +419,6 @@
             });
         }
 
-        // Calculate PAYE using Nigeria Tax Act 2025 progressive tax bands
         function calculatePAYEForEmployee(annualSalary, annualRentPaid) {
             if (annualSalary <= 0) return {
                 grossSalary: 0,
@@ -484,17 +431,15 @@
                 breakdown: []
             };
 
-            // Rent Relief: 20% of annual rent paid, capped at ₦500,000
             const rentRelief = Math.min(annualRentPaid * 0.20, 500000);
             const taxableIncome = Math.max(0, annualSalary - rentRelief);
 
-            // Nigeria Tax Act 2025 Progressive Tax Bands (Effective Jan 1, 2026)
             const taxBands = [
-                { limit: 800000, rate: 0.00, label: 'First ₦800,000 @ 0%' },
-                { limit: 2200000, rate: 0.15, label: 'Next ₦2,200,000 @ 15%' },
-                { limit: 7000000, rate: 0.18, label: 'Next ₦7,000,000 @ 18%' },
-                { limit: 15000000, rate: 0.21, label: 'Next ₦15,000,000 @ 21%' },
-                { limit: 25000000, rate: 0.23, label: 'Next ₦25,000,000 @ 23%' },
+                { limit: 800000, rate: 0.00, label: '₦0 - ₦800,000 @ 0%' },
+                { limit: 2200000, rate: 0.15, label: '₦800,001 - ₦3,000,000 @ 15%' },
+                { limit: 7000000, rate: 0.18, label: '₦3,000,001 - ₦10,000,000 @ 18%' },
+                { limit: 15000000, rate: 0.21, label: '₦10,000,001 - ₦25,000,000 @ 21%' },
+                { limit: 25000000, rate: 0.23, label: '₦25,000,001 - ₦50,000,000 @ 23%' },
                 { limit: Infinity, rate: 0.25, label: 'Above ₦50,000,000 @ 25%' }
             ];
 
@@ -512,7 +457,6 @@
                     breakdown.push({
                         label: band.label,
                         amount: taxableInBand,
-                        rate: band.rate * 100,
                         tax: taxInBand
                     });
                 }
@@ -536,7 +480,6 @@
             };
         }
 
-        // Calculate PAYE for all employees
         function calculatePAYE() {
             const salaryInputs = document.querySelectorAll('.employee-salary');
             const rentInputs = document.querySelectorAll('.employee-rent');
@@ -561,63 +504,59 @@
             displayResults(results);
         }
 
-        // Display results
         function displayResults(results) {
             const container = document.getElementById('resultsContainer');
             let html = '';
 
-            // Summary card if multiple employees
             if (results.length > 1) {
                 const totalGross = results.reduce((sum, r) => sum + r.grossSalary, 0);
                 const totalPAYE = results.reduce((sum, r) => sum + r.paye, 0);
                 const totalNet = results.reduce((sum, r) => sum + r.netSalary, 0);
 
                 html += `
+                    <div class="section-title">Summary</div>
                     <div class="result-card">
-                        <h3>📊 Summary (${results.length} Employees)</h3>
+                        <h3>${results.length} employees</h3>
                         <div class="result-row">
-                            <span class="result-label">Total Gross Salary</span>
+                            <span class="result-label">Total gross salary</span>
                             <span class="result-value">${formatCurrency(totalGross)}</span>
                         </div>
                         <div class="result-row">
                             <span class="result-label">Total PAYE</span>
                             <span class="result-value">${formatCurrency(totalPAYE)}</span>
                         </div>
-                        <div class="result-row total-row">
-                            <span class="result-label"><strong>Total Net Salary</strong></span>
+                        <div class="result-row total">
+                            <span class="result-label">Total net salary</span>
                             <span class="result-value positive">${formatCurrency(totalNet)}</span>
                         </div>
                     </div>
                 `;
             }
 
-            // Individual employee cards
+            html += '<div class="section-title">Details</div>';
+
             results.forEach(result => {
                 html += `
-                    <div class="result-card ${result.taxFree ? 'tax-free' : ''}">
+                    <div class="result-card ${result.taxFree ? 'highlight' : ''}">
                         <h3>
-                            <span>👤 Employee ${result.employeeNumber}</span>
-                            ${result.taxFree ? '<span class="tax-free-badge">TAX-FREE! 🎉</span>' : ''}
+                            <span>Employee ${result.employeeNumber}</span>
+                            ${result.taxFree ? '<span class="badge">TAX-FREE</span>' : ''}
                         </h3>
 
                         <div class="result-row">
-                            <span class="result-label">Annual Gross Salary</span>
+                            <span class="result-label">Annual gross salary</span>
                             <span class="result-value">${formatCurrency(result.grossSalary)}</span>
                         </div>
 
                         ${result.rentPaid > 0 ? `
                         <div class="result-row">
-                            <span class="result-label">Annual Rent Paid</span>
-                            <span class="result-value">${formatCurrency(result.rentPaid)}</span>
-                        </div>
-                        <div class="result-row">
-                            <span class="result-label">Rent Relief (20%, max ₦500k)</span>
+                            <span class="result-label">Rent relief</span>
                             <span class="result-value">${formatCurrency(result.rentRelief)}</span>
                         </div>
                         ` : ''}
 
                         <div class="result-row">
-                            <span class="result-label">Taxable Income</span>
+                            <span class="result-label">Taxable income</span>
                             <span class="result-value">${formatCurrency(result.taxableIncome)}</span>
                         </div>
 
@@ -626,58 +565,51 @@
                             <span class="result-value">${formatCurrency(result.paye)}</span>
                         </div>
 
-                        <div class="result-row total-row">
-                            <span class="result-label"><strong>Annual Net Salary</strong></span>
+                        <div class="result-row total">
+                            <span class="result-label">Annual net salary</span>
                             <span class="result-value positive">${formatCurrency(result.netSalary)}</span>
                         </div>
 
-                        <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
-                            <strong style="color: #006d41; font-size: 1.1em;">Monthly Breakdown:</strong>
-                            <div class="result-row" style="margin-top: 10px;">
-                                <span class="result-label">Monthly Gross</span>
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e8eaed;">
+                            <div class="result-row">
+                                <span class="result-label">Monthly gross</span>
                                 <span class="result-value">${formatCurrency(result.monthlySalary)}</span>
                             </div>
                             <div class="result-row">
                                 <span class="result-label">Monthly PAYE</span>
                                 <span class="result-value">${formatCurrency(result.monthlyPAYE)}</span>
                             </div>
-                            <div class="result-row total-row">
-                                <span class="result-label"><strong>Monthly Net Salary</strong></span>
+                            <div class="result-row">
+                                <span class="result-label">Monthly net</span>
                                 <span class="result-value positive">${formatCurrency(result.monthlyNet)}</span>
                             </div>
                         </div>
 
                         ${result.breakdown.length > 0 && !result.taxFree ? `
-                        <div style="margin-top: 20px;">
-                            <strong style="color: #006d41;">Tax Calculation Breakdown:</strong>
+                        <div style="margin-top: 16px;">
+                            <p style="font-size: 13px; color: #5f6368; margin-bottom: 8px;">Tax calculation</p>
                             <table class="breakdown-table">
                                 <thead>
                                     <tr>
-                                        <th>Tax Band</th>
-                                        <th>Amount</th>
-                                        <th>Tax</th>
+                                        <th>Band</th>
+                                        <th style="text-align: right;">Amount</th>
+                                        <th style="text-align: right;">Tax</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     ${result.breakdown.map(b => `
                                         <tr>
                                             <td>${b.label}</td>
-                                            <td>${formatCurrency(b.amount)}</td>
-                                            <td>${formatCurrency(b.tax)}</td>
+                                            <td style="text-align: right;">${formatCurrency(b.amount)}</td>
+                                            <td style="text-align: right;">${formatCurrency(b.tax)}</td>
                                         </tr>
                                     `).join('')}
-                                    <tr style="font-weight: bold; background: #f8fafc;">
+                                    <tr>
                                         <td colspan="2">Total PAYE</td>
-                                        <td>${formatCurrency(result.paye)}</td>
+                                        <td style="text-align: right;">${formatCurrency(result.paye)}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        ` : ''}
-
-                        ${result.taxFree ? `
-                        <div class="note" style="background: #d1fae5; border-color: #10b981; margin-top: 15px;">
-                            <strong>✓ Tax-Free Status:</strong> Taxable income of ${formatCurrency(result.taxableIncome)} is below the ₦800,000 threshold. No PAYE is due!
                         </div>
                         ` : ''}
                     </div>
@@ -687,83 +619,72 @@
             container.innerHTML = html;
         }
 
-        // Add employee
         function addEmployee() {
             employeeCount++;
             const container = document.getElementById('employeeContainer');
             const newEmployee = document.createElement('div');
-            newEmployee.className = 'employee-section';
+            newEmployee.className = 'employee-card';
             newEmployee.setAttribute('data-employee', employeeCount);
             newEmployee.innerHTML = `
-                <div class="employee-header">
+                <div class="employee-card-header">
                     <h3>Employee ${employeeCount}</h3>
                     <button type="button" class="btn btn-remove" onclick="removeEmployee(${employeeCount})">Remove</button>
                 </div>
-                <div class="form-group">
-                    <label for="salary-${employeeCount}">Annual Gross Salary (₦) *</label>
-                    <input type="number" id="salary-${employeeCount}" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01" required>
+                <div class="input-group">
+                    <label for="salary-${employeeCount}">Annual gross salary (₦)</label>
+                    <input type="number" id="salary-${employeeCount}" class="employee-salary" placeholder="0" min="0" step="0.01">
                 </div>
-                <div class="form-group">
-                    <label for="rent-${employeeCount}">Annual Rent Paid (₦)</label>
-                    <input type="number" id="rent-${employeeCount}" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
-                    <div class="note">
-                        Optional: Enter annual rent to claim Rent Relief (20% of rent, max ₦500k)
-                    </div>
+                <div class="input-group">
+                    <label for="rent-${employeeCount}">Annual rent paid (₦)</label>
+                    <input type="number" id="rent-${employeeCount}" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                    <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
                 </div>
             `;
             container.appendChild(newEmployee);
         }
 
-        // Remove employee
         function removeEmployee(id) {
             const employee = document.querySelector(`[data-employee="${id}"]`);
             if (employee && employeeCount > 1) {
                 employee.remove();
-            } else if (employeeCount === 1) {
-                alert('You must have at least one employee to calculate PAYE');
             }
         }
 
-        // Reset form
         function resetForm() {
-            if (confirm('Are you sure you want to reset all fields?')) {
+            if (confirm('Clear all data?')) {
                 const container = document.getElementById('employeeContainer');
                 container.innerHTML = `
-                    <div class="employee-section" data-employee="1">
-                        <div class="employee-header">
+                    <div class="employee-card" data-employee="1">
+                        <div class="employee-card-header">
                             <h3>Employee 1</h3>
                         </div>
-                        <div class="form-group">
-                            <label for="salary-1">Annual Gross Salary (₦) *</label>
-                            <input type="number" id="salary-1" class="employee-salary" placeholder="e.g., 3600000" min="0" step="0.01" required>
+                        <div class="input-group">
+                            <label for="salary-1">Annual gross salary (₦)</label>
+                            <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
                         </div>
-                        <div class="form-group">
-                            <label for="rent-1">Annual Rent Paid (₦)</label>
-                            <input type="number" id="rent-1" class="employee-rent" placeholder="e.g., 1200000" min="0" step="0.01" value="0">
-                            <div class="note">
-                                Optional: Enter annual rent to claim Rent Relief (20% of rent, max ₦500k)
-                            </div>
+                        <div class="input-group">
+                            <label for="rent-1">Annual rent paid (₦)</label>
+                            <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
                         </div>
                     </div>
                 `;
                 employeeCount = 1;
 
                 document.getElementById('resultsContainer').innerHTML = `
-                    <div class="no-results">
+                    <div class="empty-state">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
-                        <h3>No Calculations Yet</h3>
-                        <p>Enter salary information above and click "Calculate PAYE"</p>
+                        <p>Enter salary information and click Calculate</p>
                     </div>
                 `;
             }
         }
 
-        // Add keyboard support
         document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && e.target.classList.contains('employee-salary')) {
+                if (e.key === 'Enter' && (e.target.classList.contains('employee-salary') || e.target.classList.contains('employee-rent'))) {
                     calculatePAYE();
                 }
             });
