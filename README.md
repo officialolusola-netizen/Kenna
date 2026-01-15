@@ -1,14 +1,14 @@
 # Kenna
 All work pertaining to kenna
 
-## 🧮 Nigerian Tax Calculator - Nigeria Tax Act 2025
+## 🧮 Nigerian PAYE Calculator - Nigeria Tax Act 2025
 
-### Offline Multi-Tax Calculator for Nigerian Companies
+### Offline PAYE (Personal Income Tax) Calculator
 
-A comprehensive, offline-capable web-based calculator based on the **Nigeria Tax Act, 2025** (Signed June 26, 2025 | Effective January 1, 2026). Computes all major Nigerian company taxes including CIT, PAYE, VAT, WHT, CGT, and Development Levy.
+A simple, offline-capable PAYE calculator based on the **Nigeria Tax Act, 2025** (Signed June 26, 2025 | Effective January 1, 2026). Calculates employee personal income tax with the new progressive rates and tax-free threshold.
 
 ### ⚠️ Important: Effective Date
-**The Nigeria Tax Act, 2025 takes effect on January 1, 2026.** This calculator implements the new tax provisions that will apply starting 2026.
+**The Nigeria Tax Act, 2025 takes effect on January 1, 2026.** This calculator uses the new PAYE rates that apply starting 2026.
 
 ### 📥 Quick Access
 
@@ -26,26 +26,23 @@ python launch_calculator.py
 
 ### ✨ Key Features (Nigeria Tax Act 2025)
 
-- ✅ **Company Income Tax (CIT)** - 30% with WHT credit system
-- ✅ **PAYE** - New progressive bands: **0%, 15%, 18%, 21%, 23%, 25%**
+- ✅ **PAYE Progressive Bands** - **0%, 15%, 18%, 21%, 23%, 25%**
 - ✅ **Tax-Free Threshold** - First **₦800,000** completely tax-free!
-- ✅ **Rent Relief** - Replaces CRA: 20% of rent (max ₦500k)
-- ✅ **Capital Gains Tax (CGT)** - **30%** (increased from 10%)
-- ✅ **Development Levy** - **4%** (replaces TET, NASENI, IT Levy, etc.)
-- ✅ **Small Company Exemption** - 0% tax for companies ≤₦50M turnover & ≤₦250M assets
-- ✅ **Minimum ETR** - 15% for large companies (₦20B+ revenue)
-- ✅ **VAT** - 7.5% informational tracking
-- ✅ **Withholding Tax (WHT)** - 10% standard rate (credit against CIT)
-- ✅ **Per-Employee PAYE** - Individual breakdowns with tax-free status indicators
-- ✅ **Professional UI** - Modern, responsive design with Nigerian colors
+- ✅ **Rent Relief** - 20% of annual rent, max ₦500k (replaces CRA)
+- ✅ **Monthly Breakdown** - Shows monthly gross, PAYE, and net salary
+- ✅ **Detailed Tax Calculation** - Per-band breakdown table
+- ✅ **Tax-Free Status Detection** - Automatic when taxable income ≤₦800k
+- ✅ **Multi-Employee Support** - Calculate for multiple people at once
+- ✅ **Summary View** - Total gross, PAYE, and net for all employees
+- ✅ **Professional UI** - Clean, modern design with Nigerian colors
 - ✅ **100% Offline** - No internet needed after download
-- ✅ **Mobile Friendly** - Works on all devices
+- ✅ **Mobile Friendly** - Responsive design works on all devices
 
 ### 📖 Documentation
 
 See [CALCULATOR_README.md](CALCULATOR_README.md) for:
 - Detailed installation instructions
-- Tax rates reference (Nigeria Tax Act 2025)
+- PAYE tax rates reference (Nigeria Tax Act 2025)
 - What's new compared to previous law
 - Usage guide with examples
 - Troubleshooting tips
@@ -53,36 +50,44 @@ See [CALCULATOR_README.md](CALCULATOR_README.md) for:
 
 ### 🎯 What's Calculated
 
-The calculator computes all major Nigerian business taxes under the Nigeria Tax Act 2025:
+The calculator computes **PAYE (Personal Income Tax)** under the Nigeria Tax Act 2025:
 
-1. **Revenue Analysis** - Gross income, expenses, assessable profit
-2. **Company Status** - Small Company exemption determination
-3. **Company Taxes** - CIT, Development Levy (4%), CGT (30%), Minimum Tax, Minimum ETR (15%)
-4. **Employee Taxes** - PAYE with new progressive bands (0%-25%), Rent Relief, tax-free status
-5. **VAT Information** - 7.5% collection and remittance tracking
-6. **WHT Credits** - Proper application against CIT liability
-7. **Net Income** - Monthly and annual profit after all company taxes
+1. **Rent Relief** - 20% of annual rent paid, capped at ₦500,000
+2. **Taxable Income** - Gross salary minus rent relief
+3. **PAYE Tax** - Using progressive bands (0%-25%)
+4. **Net Salary** - Annual and monthly after-tax income
+5. **Tax-Free Status** - Automatic detection if taxable income ≤₦800,000
+6. **Detailed Breakdown** - Per-band tax calculation table
+
+### 📊 PAYE Tax Bands (Nigeria Tax Act 2025)
+
+| Taxable Income Range | Tax Rate |
+|---------------------|----------|
+| First ₦800,000 | **0%** (Tax-Free! 🎉) |
+| ₦800,001 - ₦3,000,000 | 15% |
+| ₦3,000,001 - ₦10,000,000 | 18% |
+| ₦10,000,001 - ₦25,000,000 | 21% |
+| ₦25,000,001 - ₦50,000,000 | 23% |
+| Above ₦50,000,000 | 25% |
 
 ### 🎉 What's New in Nigeria Tax Act 2025
 
-**Major Changes:**
-- **Tax-Free Income**: First ₦800,000 is tax-free (PAYE)
-- **CGT Increase**: 10% → 30%
-- **Development Levy**: Consolidates 4 separate levies into one 4% levy
-- **Small Company Exemption**: Full tax exemption for qualifying businesses
+**Major PAYE Changes:**
+- **Tax-Free Threshold**: First ₦800,000 is tax-free (NEW!)
+- **PAYE Rates**: 0%, 15%, 18%, 21%, 23%, 25% (OLD: 7%, 11%, 15%, 19%, 21%, 24%)
 - **Rent Relief**: Replaces the old Consolidated Relief Allowance (CRA)
-- **Minimum ETR**: 15% for companies with ₦20B+ revenue
+- **Simpler Calculation**: Clearer thresholds and fewer complexities
 
 ### ⚠️ Disclaimer
 
-This calculator is for informational purposes only and implements the Nigeria Tax Act, 2025 (Effective Jan 1, 2026). Always consult a qualified tax professional for official tax advice and compliance.
+This calculator is for informational purposes only and implements PAYE provisions from the Nigeria Tax Act, 2025 (Effective Jan 1, 2026). Always consult a qualified tax professional for official tax advice and compliance.
 
 ---
 
 ## 📂 Repository Contents
 
-- `nigerian_tax_calculator.html` - Offline tax calculator (main file)
+- `nigerian_tax_calculator.html` - Offline PAYE calculator (main file)
 - `launch_calculator.py` - Python launcher script
-- `CALCULATOR_README.md` - Comprehensive documentation
+- `CALCULATOR_README.md` - Comprehensive PAYE documentation
 - `Credit_Facilitation_Nigeria.pptx` - Credit facilitation presentation
 - `create_presentation.py` - Presentation generator script
