@@ -375,21 +375,57 @@
                 </table>
             </div>
 
-            <div class="section-title">Salary Information</div>
+            <div class="section-title">Income & Deductions</div>
 
             <div id="employeeContainer">
                 <div class="employee-card" data-employee="1">
                     <div class="employee-card-header">
                         <h3>Employee 1</h3>
                     </div>
+
                     <div class="input-group">
                         <label for="salary-1">Annual gross salary (₦)</label>
                         <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
                     </div>
-                    <div class="input-group">
-                        <label for="rent-1">Annual rent paid (₦)</label>
-                        <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
-                        <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+
+                    <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                        <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                        <div class="input-group">
+                            <label for="pension-1">Pension contributions (₦)</label>
+                            <input type="number" id="pension-1" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="nhf-1">National Housing Fund - NHF (₦)</label>
+                            <input type="number" id="nhf-1" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">2.5% of basic salary</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="nhis-1">National Health Insurance - NHIS (₦)</label>
+                            <input type="number" id="nhis-1" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Health insurance contributions</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="life-insurance-1">Life insurance premiums (₦)</label>
+                            <input type="number" id="life-insurance-1" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Annual life insurance or deferred annuity</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="home-loan-1">Home loan interest (₦)</label>
+                            <input type="number" id="home-loan-1" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Interest on loan for own residence</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="rent-1">Annual rent paid (₦)</label>
+                            <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -419,11 +455,17 @@
             });
         }
 
-        function calculatePAYEForEmployee(annualSalary, annualRentPaid) {
+        function calculatePAYEForEmployee(annualSalary, annualRentPaid, pension, nhf, nhis, lifeInsurance, homeLoan) {
             if (annualSalary <= 0) return {
                 grossSalary: 0,
                 rentPaid: 0,
+                pension: 0,
+                nhf: 0,
+                nhis: 0,
+                lifeInsurance: 0,
+                homeLoan: 0,
                 rentRelief: 0,
+                totalDeductions: 0,
                 taxableIncome: 0,
                 paye: 0,
                 netSalary: 0,
@@ -432,7 +474,8 @@
             };
 
             const rentRelief = Math.min(annualRentPaid * 0.20, 500000);
-            const taxableIncome = Math.max(0, annualSalary - rentRelief);
+            const totalDeductions = pension + nhf + nhis + lifeInsurance + homeLoan + rentRelief;
+            const taxableIncome = Math.max(0, annualSalary - totalDeductions);
 
             const taxBands = [
                 { limit: 800000, rate: 0.00, label: '₦0 - ₦800,000 @ 0%' },
@@ -468,7 +511,13 @@
             return {
                 grossSalary: annualSalary,
                 rentPaid: annualRentPaid,
+                pension: pension,
+                nhf: nhf,
+                nhis: nhis,
+                lifeInsurance: lifeInsurance,
+                homeLoan: homeLoan,
                 rentRelief: rentRelief,
+                totalDeductions: totalDeductions,
                 taxableIncome: taxableIncome,
                 paye: totalTax,
                 netSalary: annualSalary - totalTax,
@@ -483,14 +532,24 @@
         function calculatePAYE() {
             const salaryInputs = document.querySelectorAll('.employee-salary');
             const rentInputs = document.querySelectorAll('.employee-rent');
+            const pensionInputs = document.querySelectorAll('.employee-pension');
+            const nhfInputs = document.querySelectorAll('.employee-nhf');
+            const nhisInputs = document.querySelectorAll('.employee-nhis');
+            const lifeInsuranceInputs = document.querySelectorAll('.employee-life-insurance');
+            const homeLoanInputs = document.querySelectorAll('.employee-home-loan');
             const results = [];
 
             salaryInputs.forEach((input, index) => {
                 const salary = parseFloat(input.value) || 0;
                 const rent = parseFloat(rentInputs[index].value) || 0;
+                const pension = parseFloat(pensionInputs[index].value) || 0;
+                const nhf = parseFloat(nhfInputs[index].value) || 0;
+                const nhis = parseFloat(nhisInputs[index].value) || 0;
+                const lifeInsurance = parseFloat(lifeInsuranceInputs[index].value) || 0;
+                const homeLoan = parseFloat(homeLoanInputs[index].value) || 0;
 
                 if (salary > 0) {
-                    const result = calculatePAYEForEmployee(salary, rent);
+                    const result = calculatePAYEForEmployee(salary, rent, pension, nhf, nhis, lifeInsurance, homeLoan);
                     result.employeeNumber = index + 1;
                     results.push(result);
                 }
@@ -548,10 +607,49 @@
                             <span class="result-value">${formatCurrency(result.grossSalary)}</span>
                         </div>
 
-                        ${result.rentPaid > 0 ? `
-                        <div class="result-row">
-                            <span class="result-label">Rent relief</span>
-                            <span class="result-value">${formatCurrency(result.rentRelief)}</span>
+                        ${result.totalDeductions > 0 ? `
+                        <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 4px;">
+                            <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 8px;">Deductions</p>
+                            ${result.pension > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Pension</span>
+                                <span class="result-value">${formatCurrency(result.pension)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.nhf > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">NHF</span>
+                                <span class="result-value">${formatCurrency(result.nhf)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.nhis > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">NHIS</span>
+                                <span class="result-value">${formatCurrency(result.nhis)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.lifeInsurance > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Life insurance</span>
+                                <span class="result-value">${formatCurrency(result.lifeInsurance)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.homeLoan > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Home loan interest</span>
+                                <span class="result-value">${formatCurrency(result.homeLoan)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.rentRelief > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Rent relief</span>
+                                <span class="result-value">${formatCurrency(result.rentRelief)}</span>
+                            </div>
+                            ` : ''}
+                            <div class="result-row" style="border-top: 1px solid #e8eaed; padding-top: 8px; margin-top: 4px;">
+                                <span class="result-label" style="font-weight: 500;">Total deductions</span>
+                                <span class="result-value" style="font-weight: 500;">${formatCurrency(result.totalDeductions)}</span>
+                            </div>
                         </div>
                         ` : ''}
 
@@ -630,14 +728,50 @@
                     <h3>Employee ${employeeCount}</h3>
                     <button type="button" class="btn btn-remove" onclick="removeEmployee(${employeeCount})">Remove</button>
                 </div>
+
                 <div class="input-group">
                     <label for="salary-${employeeCount}">Annual gross salary (₦)</label>
                     <input type="number" id="salary-${employeeCount}" class="employee-salary" placeholder="0" min="0" step="0.01">
                 </div>
-                <div class="input-group">
-                    <label for="rent-${employeeCount}">Annual rent paid (₦)</label>
-                    <input type="number" id="rent-${employeeCount}" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
-                    <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+
+                <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                    <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                    <div class="input-group">
+                        <label for="pension-${employeeCount}">Pension contributions (₦)</label>
+                        <input type="number" id="pension-${employeeCount}" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nhf-${employeeCount}">National Housing Fund - NHF (₦)</label>
+                        <input type="number" id="nhf-${employeeCount}" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">2.5% of basic salary</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nhis-${employeeCount}">National Health Insurance - NHIS (₦)</label>
+                        <input type="number" id="nhis-${employeeCount}" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Health insurance contributions</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="life-insurance-${employeeCount}">Life insurance premiums (₦)</label>
+                        <input type="number" id="life-insurance-${employeeCount}" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Annual life insurance or deferred annuity</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="home-loan-${employeeCount}">Home loan interest (₦)</label>
+                        <input type="number" id="home-loan-${employeeCount}" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Interest on loan for own residence</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="rent-${employeeCount}">Annual rent paid (₦)</label>
+                        <input type="number" id="rent-${employeeCount}" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                    </div>
                 </div>
             `;
             container.appendChild(newEmployee);
@@ -658,14 +792,50 @@
                         <div class="employee-card-header">
                             <h3>Employee 1</h3>
                         </div>
+
                         <div class="input-group">
                             <label for="salary-1">Annual gross salary (₦)</label>
                             <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
                         </div>
-                        <div class="input-group">
-                            <label for="rent-1">Annual rent paid (₦)</label>
-                            <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
-                            <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+
+                        <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                            <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                            <div class="input-group">
+                                <label for="pension-1">Pension contributions (₦)</label>
+                                <input type="number" id="pension-1" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="nhf-1">National Housing Fund - NHF (₦)</label>
+                                <input type="number" id="nhf-1" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">2.5% of basic salary</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="nhis-1">National Health Insurance - NHIS (₦)</label>
+                                <input type="number" id="nhis-1" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Health insurance contributions</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="life-insurance-1">Life insurance premiums (₦)</label>
+                                <input type="number" id="life-insurance-1" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Annual life insurance or deferred annuity</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="home-loan-1">Home loan interest (₦)</label>
+                                <input type="number" id="home-loan-1" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Interest on loan for own residence</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="rent-1">Annual rent paid (₦)</label>
+                                <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -684,7 +854,15 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && (e.target.classList.contains('employee-salary') || e.target.classList.contains('employee-rent'))) {
+                if (e.key === 'Enter' && (
+                    e.target.classList.contains('employee-salary') ||
+                    e.target.classList.contains('employee-rent') ||
+                    e.target.classList.contains('employee-pension') ||
+                    e.target.classList.contains('employee-nhf') ||
+                    e.target.classList.contains('employee-nhis') ||
+                    e.target.classList.contains('employee-life-insurance') ||
+                    e.target.classList.contains('employee-home-loan')
+                )) {
                     calculatePAYE();
                 }
             });
