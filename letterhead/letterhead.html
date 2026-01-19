@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Intellingentsia Nigeria - Letterhead</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .letterhead {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 40px 40px 30px;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(to right, #D4AF37 0%, #1B5E20 50%, #D4AF37 100%);
+            border-image-slice: 1;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent 0%, #1B5E20 50%, transparent 100%);
+        }
+
+        .logo-container {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-placeholder {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(27, 94, 32, 0.25);
+            border: 4px solid white;
+            outline: 3px solid #D4AF37;
+            position: relative;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .company-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #1B5E20;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .company-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #2E7D32;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .company-acronym {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .reference-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #757575;
+            margin-top: 20px;
+            padding-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 50px 60px;
+            min-height: 550px;
+            font-size: 11pt;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* Footer Section */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.9) 30%);
+        }
+
+        .footer-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            overflow: hidden;
+        }
+
+        .footer-wave svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-content {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 60px;
+            z-index: 10;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .footer-icon {
+            width: 20px;
+            height: 20px;
+            fill: #D4AF37;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .divider {
+            width: 2px;
+            height: 30px;
+            background: rgba(212, 175, 55, 0.6);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .letterhead {
+                box-shadow: none;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="letterhead">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <!-- Replace this div with your logo image -->
+                    <!-- <img src="assets/new-logo.png" alt="The Intellingentsia Nigeria Logo"> -->
+                    <div class="logo-text">
+                        PLACE NEW<br>CIRCULAR LOGO<br>HERE
+                    </div>
+                </div>
+            </div>
+
+            <div class="company-name">The Intellingentsia Nigeria</div>
+            <div class="company-tagline">...innovate, secure, empower</div>
+            <div class="company-acronym">(IESDI)</div>
+
+            <div class="reference-number">CAC/COM/2025/17648568222414</div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Your letter content goes here -->
+            <p style="margin-bottom: 20px;"><strong>Date:</strong> [Insert Date]</p>
+            <p style="margin-bottom: 20px;"><strong>To:</strong> [Recipient Name]<br>
+            [Recipient Address]</p>
+
+            <p style="margin-bottom: 20px;"><strong>Subject:</strong> [Subject Line]</p>
+
+            <p style="margin-bottom: 15px;">Dear [Recipient],</p>
+
+            <p style="margin-bottom: 15px;">
+                [Your letter content begins here. This letterhead has been designed to maintain brand continuity while providing a modern, professional appearance suitable for official documents.]
+            </p>
+
+            <p style="margin-bottom: 15px;">
+                [Additional paragraphs as needed...]
+            </p>
+
+            <p style="margin-top: 40px;">Yours sincerely,</p>
+            <p style="margin-top: 60px;">[Signature]</p>
+            <p><strong>[Name]</strong><br>[Position]</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-wave">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#1B5E20;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- First wave -->
+                    <path d="M0,60 C300,90 600,30 900,60 C1050,75 1150,65 1200,60 L1200,120 L0,120 Z"
+                          fill="url(#gradient1)" opacity="0.8"/>
+                    <!-- Second wave -->
+                    <path d="M0,70 C300,40 600,100 900,70 C1050,55 1150,75 1200,70 L1200,120 L0,120 Z"
+                          fill="#1B5E20" opacity="0.9"/>
+                    <!-- Third wave -->
+                    <path d="M0,85 C300,65 600,105 900,85 C1050,75 1150,90 1200,85 L1200,120 L0,120 Z"
+                          fill="#0D4018"/>
+                </svg>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-item">
+                    <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    +234 803 332 5647
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="footer-item">
+                    <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    39 Yaounde Street, Abuja, Nigeria
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
