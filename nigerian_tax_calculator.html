@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAYE Calculator - Nigeria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #202124;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 24px;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .info-banner {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+
+        .info-banner p {
+            font-size: 14px;
+            color: #1967d2;
+            margin: 0;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+            margin: 24px 0 16px 0;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: white;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .input-group input:hover {
+            border-color: #bdc1c6;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 1px #1a73e8;
+        }
+
+        .employee-card {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .employee-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .employee-card-header h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-add {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .btn-add:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-remove {
+            background: white;
+            color: #d93025;
+            border: 1px solid #dadce0;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        .btn-remove:hover {
+            background: #fce8e6;
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 4px;
+        }
+
+        .results {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e8eaed;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e8eaed;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .result-card.highlight {
+            background: #e8f5e9;
+            border-color: #34a853;
+        }
+
+        .result-card h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge {
+            background: #34a853;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-row.total {
+            font-weight: 500;
+            padding-top: 12px;
+            margin-top: 4px;
+            border-top: 1px solid #e8eaed;
+        }
+
+        .result-label {
+            color: #5f6368;
+        }
+
+        .result-value {
+            color: #202124;
+            font-weight: 500;
+            font-feature-settings: 'tnum';
+        }
+
+        .result-value.positive {
+            color: #34a853;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            margin-top: 12px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .breakdown-table th {
+            text-align: left;
+            padding: 8px;
+            background: #f8f9fa;
+            color: #5f6368;
+            font-weight: 500;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .breakdown-table td {
+            padding: 8px;
+            border-bottom: 1px solid #f1f3f4;
+            font-feature-settings: 'tnum';
+        }
+
+        .breakdown-table tr:last-child td {
+            border-bottom: none;
+            font-weight: 500;
+        }
+
+        .tax-bands {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tax-bands h3 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #202124;
+        }
+
+        .tax-bands table {
+            width: 100%;
+            font-size: 13px;
+        }
+
+        .tax-bands td {
+            padding: 6px 0;
+            color: #5f6368;
+        }
+
+        .tax-bands td:last-child {
+            text-align: right;
+            color: #202124;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #5f6368;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .result-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PAYE Calculator</h1>
+            <p>Nigeria Tax Act, 2025 (Effective Jan 1, 2026)</p>
+        </div>
+
+        <div class="content">
+            <div class="info-banner">
+                <p><strong>Tax-free threshold:</strong> First ₦800,000 of taxable income is tax-free</p>
+            </div>
+
+            <div class="tax-bands">
+                <h3>Tax Rates</h3>
+                <table>
+                    <tr><td>First ₦800,000</td><td>0%</td></tr>
+                    <tr><td>₦800,001 - ₦3,000,000</td><td>15%</td></tr>
+                    <tr><td>₦3,000,001 - ₦10,000,000</td><td>18%</td></tr>
+                    <tr><td>₦10,000,001 - ₦25,000,000</td><td>21%</td></tr>
+                    <tr><td>₦25,000,001 - ₦50,000,000</td><td>23%</td></tr>
+                    <tr><td>Above ₦50,000,000</td><td>25%</td></tr>
+                </table>
+            </div>
+
+            <div class="section-title">Income & Deductions</div>
+
+            <div id="employeeContainer">
+                <div class="employee-card" data-employee="1">
+                    <div class="employee-card-header">
+                        <h3>Employee 1</h3>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="salary-1">Annual gross salary (₦)</label>
+                        <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
+                    </div>
+
+                    <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                        <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                        <div class="input-group">
+                            <label for="pension-1">Pension contributions (₦)</label>
+                            <input type="number" id="pension-1" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="nhf-1">National Housing Fund - NHF (₦)</label>
+                            <input type="number" id="nhf-1" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">2.5% of basic salary</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="nhis-1">National Health Insurance - NHIS (₦)</label>
+                            <input type="number" id="nhis-1" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Health insurance contributions</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="life-insurance-1">Life insurance premiums (₦)</label>
+                            <input type="number" id="life-insurance-1" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Annual life insurance or deferred annuity</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="home-loan-1">Home loan interest (₦)</label>
+                            <input type="number" id="home-loan-1" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Interest on loan for own residence</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="rent-1">Annual rent paid (₦)</label>
+                            <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                            <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-add" onclick="addEmployee()">Add another employee</button>
+            <button type="button" class="btn btn-primary" onclick="calculatePAYE()">Calculate</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear all</button>
+
+            <div class="results" id="resultsContainer">
+                <div class="empty-state">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                    <p>Enter salary information and click Calculate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let employeeCount = 1;
+
+        function formatCurrency(amount) {
+            return '₦' + amount.toLocaleString('en-NG', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function calculatePAYEForEmployee(annualSalary, annualRentPaid, pension, nhf, nhis, lifeInsurance, homeLoan) {
+            if (annualSalary <= 0) return {
+                grossSalary: 0,
+                rentPaid: 0,
+                pension: 0,
+                nhf: 0,
+                nhis: 0,
+                lifeInsurance: 0,
+                homeLoan: 0,
+                rentRelief: 0,
+                totalDeductions: 0,
+                taxableIncome: 0,
+                paye: 0,
+                netSalary: 0,
+                taxFree: false,
+                breakdown: []
+            };
+
+            const rentRelief = Math.min(annualRentPaid * 0.20, 500000);
+            const totalDeductions = pension + nhf + nhis + lifeInsurance + homeLoan + rentRelief;
+            const taxableIncome = Math.max(0, annualSalary - totalDeductions);
+
+            const taxBands = [
+                { limit: 800000, rate: 0.00, label: '₦0 - ₦800,000 @ 0%' },
+                { limit: 2200000, rate: 0.15, label: '₦800,001 - ₦3,000,000 @ 15%' },
+                { limit: 7000000, rate: 0.18, label: '₦3,000,001 - ₦10,000,000 @ 18%' },
+                { limit: 15000000, rate: 0.21, label: '₦10,000,001 - ₦25,000,000 @ 21%' },
+                { limit: 25000000, rate: 0.23, label: '₦25,000,001 - ₦50,000,000 @ 23%' },
+                { limit: Infinity, rate: 0.25, label: 'Above ₦50,000,000 @ 25%' }
+            ];
+
+            let totalTax = 0;
+            let remaining = taxableIncome;
+            const taxFree = taxableIncome <= 800000;
+            const breakdown = [];
+
+            for (const band of taxBands) {
+                if (remaining <= 0) break;
+                const taxableInBand = Math.min(remaining, band.limit);
+                const taxInBand = taxableInBand * band.rate;
+
+                if (taxableInBand > 0) {
+                    breakdown.push({
+                        label: band.label,
+                        amount: taxableInBand,
+                        tax: taxInBand
+                    });
+                }
+
+                totalTax += taxInBand;
+                remaining -= taxableInBand;
+            }
+
+            return {
+                grossSalary: annualSalary,
+                rentPaid: annualRentPaid,
+                pension: pension,
+                nhf: nhf,
+                nhis: nhis,
+                lifeInsurance: lifeInsurance,
+                homeLoan: homeLoan,
+                rentRelief: rentRelief,
+                totalDeductions: totalDeductions,
+                taxableIncome: taxableIncome,
+                paye: totalTax,
+                netSalary: annualSalary - totalTax,
+                monthlySalary: annualSalary / 12,
+                monthlyPAYE: totalTax / 12,
+                monthlyNet: (annualSalary - totalTax) / 12,
+                taxFree: taxFree,
+                breakdown: breakdown
+            };
+        }
+
+        function calculatePAYE() {
+            const salaryInputs = document.querySelectorAll('.employee-salary');
+            const rentInputs = document.querySelectorAll('.employee-rent');
+            const pensionInputs = document.querySelectorAll('.employee-pension');
+            const nhfInputs = document.querySelectorAll('.employee-nhf');
+            const nhisInputs = document.querySelectorAll('.employee-nhis');
+            const lifeInsuranceInputs = document.querySelectorAll('.employee-life-insurance');
+            const homeLoanInputs = document.querySelectorAll('.employee-home-loan');
+            const results = [];
+
+            salaryInputs.forEach((input, index) => {
+                const salary = parseFloat(input.value) || 0;
+                const rent = parseFloat(rentInputs[index].value) || 0;
+                const pension = parseFloat(pensionInputs[index].value) || 0;
+                const nhf = parseFloat(nhfInputs[index].value) || 0;
+                const nhis = parseFloat(nhisInputs[index].value) || 0;
+                const lifeInsurance = parseFloat(lifeInsuranceInputs[index].value) || 0;
+                const homeLoan = parseFloat(homeLoanInputs[index].value) || 0;
+
+                if (salary > 0) {
+                    const result = calculatePAYEForEmployee(salary, rent, pension, nhf, nhis, lifeInsurance, homeLoan);
+                    result.employeeNumber = index + 1;
+                    results.push(result);
+                }
+            });
+
+            if (results.length === 0) {
+                alert('Please enter at least one salary amount');
+                return;
+            }
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const container = document.getElementById('resultsContainer');
+            let html = '';
+
+            if (results.length > 1) {
+                const totalGross = results.reduce((sum, r) => sum + r.grossSalary, 0);
+                const totalPAYE = results.reduce((sum, r) => sum + r.paye, 0);
+                const totalNet = results.reduce((sum, r) => sum + r.netSalary, 0);
+
+                html += `
+                    <div class="section-title">Summary</div>
+                    <div class="result-card">
+                        <h3>${results.length} employees</h3>
+                        <div class="result-row">
+                            <span class="result-label">Total gross salary</span>
+                            <span class="result-value">${formatCurrency(totalGross)}</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Total PAYE</span>
+                            <span class="result-value">${formatCurrency(totalPAYE)}</span>
+                        </div>
+                        <div class="result-row total">
+                            <span class="result-label">Total net salary</span>
+                            <span class="result-value positive">${formatCurrency(totalNet)}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += '<div class="section-title">Details</div>';
+
+            results.forEach(result => {
+                html += `
+                    <div class="result-card ${result.taxFree ? 'highlight' : ''}">
+                        <h3>
+                            <span>Employee ${result.employeeNumber}</span>
+                            ${result.taxFree ? '<span class="badge">TAX-FREE</span>' : ''}
+                        </h3>
+
+                        <div class="result-row">
+                            <span class="result-label">Annual gross salary</span>
+                            <span class="result-value">${formatCurrency(result.grossSalary)}</span>
+                        </div>
+
+                        ${result.totalDeductions > 0 ? `
+                        <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 4px;">
+                            <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 8px;">Deductions</p>
+                            ${result.pension > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Pension</span>
+                                <span class="result-value">${formatCurrency(result.pension)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.nhf > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">NHF</span>
+                                <span class="result-value">${formatCurrency(result.nhf)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.nhis > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">NHIS</span>
+                                <span class="result-value">${formatCurrency(result.nhis)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.lifeInsurance > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Life insurance</span>
+                                <span class="result-value">${formatCurrency(result.lifeInsurance)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.homeLoan > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Home loan interest</span>
+                                <span class="result-value">${formatCurrency(result.homeLoan)}</span>
+                            </div>
+                            ` : ''}
+                            ${result.rentRelief > 0 ? `
+                            <div class="result-row" style="border: none; padding: 4px 0;">
+                                <span class="result-label">Rent relief</span>
+                                <span class="result-value">${formatCurrency(result.rentRelief)}</span>
+                            </div>
+                            ` : ''}
+                            <div class="result-row" style="border-top: 1px solid #e8eaed; padding-top: 8px; margin-top: 4px;">
+                                <span class="result-label" style="font-weight: 500;">Total deductions</span>
+                                <span class="result-value" style="font-weight: 500;">${formatCurrency(result.totalDeductions)}</span>
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="result-row">
+                            <span class="result-label">Taxable income</span>
+                            <span class="result-value">${formatCurrency(result.taxableIncome)}</span>
+                        </div>
+
+                        <div class="result-row">
+                            <span class="result-label">Annual PAYE</span>
+                            <span class="result-value">${formatCurrency(result.paye)}</span>
+                        </div>
+
+                        <div class="result-row total">
+                            <span class="result-label">Annual net salary</span>
+                            <span class="result-value positive">${formatCurrency(result.netSalary)}</span>
+                        </div>
+
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e8eaed;">
+                            <div class="result-row">
+                                <span class="result-label">Monthly gross</span>
+                                <span class="result-value">${formatCurrency(result.monthlySalary)}</span>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label">Monthly PAYE</span>
+                                <span class="result-value">${formatCurrency(result.monthlyPAYE)}</span>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label">Monthly net</span>
+                                <span class="result-value positive">${formatCurrency(result.monthlyNet)}</span>
+                            </div>
+                        </div>
+
+                        ${result.breakdown.length > 0 && !result.taxFree ? `
+                        <div style="margin-top: 16px;">
+                            <p style="font-size: 13px; color: #5f6368; margin-bottom: 8px;">Tax calculation</p>
+                            <table class="breakdown-table">
+                                <thead>
+                                    <tr>
+                                        <th>Band</th>
+                                        <th style="text-align: right;">Amount</th>
+                                        <th style="text-align: right;">Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${result.breakdown.map(b => `
+                                        <tr>
+                                            <td>${b.label}</td>
+                                            <td style="text-align: right;">${formatCurrency(b.amount)}</td>
+                                            <td style="text-align: right;">${formatCurrency(b.tax)}</td>
+                                        </tr>
+                                    `).join('')}
+                                    <tr>
+                                        <td colspan="2">Total PAYE</td>
+                                        <td style="text-align: right;">${formatCurrency(result.paye)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function addEmployee() {
+            employeeCount++;
+            const container = document.getElementById('employeeContainer');
+            const newEmployee = document.createElement('div');
+            newEmployee.className = 'employee-card';
+            newEmployee.setAttribute('data-employee', employeeCount);
+            newEmployee.innerHTML = `
+                <div class="employee-card-header">
+                    <h3>Employee ${employeeCount}</h3>
+                    <button type="button" class="btn btn-remove" onclick="removeEmployee(${employeeCount})">Remove</button>
+                </div>
+
+                <div class="input-group">
+                    <label for="salary-${employeeCount}">Annual gross salary (₦)</label>
+                    <input type="number" id="salary-${employeeCount}" class="employee-salary" placeholder="0" min="0" step="0.01">
+                </div>
+
+                <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                    <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                    <div class="input-group">
+                        <label for="pension-${employeeCount}">Pension contributions (₦)</label>
+                        <input type="number" id="pension-${employeeCount}" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nhf-${employeeCount}">National Housing Fund - NHF (₦)</label>
+                        <input type="number" id="nhf-${employeeCount}" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">2.5% of basic salary</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nhis-${employeeCount}">National Health Insurance - NHIS (₦)</label>
+                        <input type="number" id="nhis-${employeeCount}" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Health insurance contributions</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="life-insurance-${employeeCount}">Life insurance premiums (₦)</label>
+                        <input type="number" id="life-insurance-${employeeCount}" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Annual life insurance or deferred annuity</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="home-loan-${employeeCount}">Home loan interest (₦)</label>
+                        <input type="number" id="home-loan-${employeeCount}" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Interest on loan for own residence</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="rent-${employeeCount}">Annual rent paid (₦)</label>
+                        <input type="number" id="rent-${employeeCount}" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                        <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(newEmployee);
+        }
+
+        function removeEmployee(id) {
+            const employee = document.querySelector(`[data-employee="${id}"]`);
+            if (employee && employeeCount > 1) {
+                employee.remove();
+            }
+        }
+
+        function resetForm() {
+            if (confirm('Clear all data?')) {
+                const container = document.getElementById('employeeContainer');
+                container.innerHTML = `
+                    <div class="employee-card" data-employee="1">
+                        <div class="employee-card-header">
+                            <h3>Employee 1</h3>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="salary-1">Annual gross salary (₦)</label>
+                            <input type="number" id="salary-1" class="employee-salary" placeholder="0" min="0" step="0.01">
+                        </div>
+
+                        <div style="border-top: 1px solid #e8eaed; margin: 16px 0; padding-top: 16px;">
+                            <p style="font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 12px;">Allowable Deductions</p>
+
+                            <div class="input-group">
+                                <label for="pension-1">Pension contributions (₦)</label>
+                                <input type="number" id="pension-1" class="employee-pension" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Mandatory 8% + voluntary contributions</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="nhf-1">National Housing Fund - NHF (₦)</label>
+                                <input type="number" id="nhf-1" class="employee-nhf" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">2.5% of basic salary</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="nhis-1">National Health Insurance - NHIS (₦)</label>
+                                <input type="number" id="nhis-1" class="employee-nhis" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Health insurance contributions</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="life-insurance-1">Life insurance premiums (₦)</label>
+                                <input type="number" id="life-insurance-1" class="employee-life-insurance" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Annual life insurance or deferred annuity</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="home-loan-1">Home loan interest (₦)</label>
+                                <input type="number" id="home-loan-1" class="employee-home-loan" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Interest on loan for own residence</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="rent-1">Annual rent paid (₦)</label>
+                                <input type="number" id="rent-1" class="employee-rent" placeholder="0" min="0" step="0.01" value="0">
+                                <div class="helper-text">Rent relief: 20% of rent, max ₦500,000</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                employeeCount = 1;
+
+                document.getElementById('resultsContainer').innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <p>Enter salary information and click Calculate</p>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && (
+                    e.target.classList.contains('employee-salary') ||
+                    e.target.classList.contains('employee-rent') ||
+                    e.target.classList.contains('employee-pension') ||
+                    e.target.classList.contains('employee-nhf') ||
+                    e.target.classList.contains('employee-nhis') ||
+                    e.target.classList.contains('employee-life-insurance') ||
+                    e.target.classList.contains('employee-home-loan')
+                )) {
+                    calculatePAYE();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
